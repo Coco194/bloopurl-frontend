@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>POST Request Test</title>
+</head>
+<body>
+    <h1>URL Shortener POST Test</h1>
+
+    <button id="shortenBtn">Shorten URL</button>
+
+    <pre id="output"></pre>
+
+    <script>
+        const button = document.getElementById("shortenBtn");
+        const output = document.getElementById("output");
+
+        button.addEventListener("click", async () => {
+            const data = {
+                URL: "https://coco194.github.io/portfolio-vue/"
+            };
+
+            try {
+                const response = await fetch("http://localhost/linktree/public/index.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                // Make sure the response is OK
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Parse JSON
+                const result = await response.json();
+
+                // Display JSON nicely in <pre> tag
+                output.textContent = JSON.stringify(result, null, 4);
+
+                console.log("Response JSON:", result);
+
+            } catch (err) {
+                console.error("Error:", err);
+                output.textContent = "Error: " + err.message;
+            }
+        });
+    </script>
+</body>
+</html>
+
