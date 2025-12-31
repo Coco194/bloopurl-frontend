@@ -4,6 +4,7 @@ import homePage from '../views/HomePage.vue'
 import aboutPage from '../views/AboutPage.vue'
 import notFound from '../views/NotFound.vue'
 import dashboardPage from '../views/DashboardPage.vue'
+import LinkPage from '../views/LinkPage.vue'
 
 const routes = [
   { 
@@ -21,6 +22,10 @@ const routes = [
   {
     path: '/dashboard',
     component: dashboardPage
+  },
+  {
+    path: '/link',
+    component: LinkPage
   }
 
 ]
