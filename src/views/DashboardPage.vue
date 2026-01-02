@@ -2,6 +2,7 @@
 
 <div class="container pageContainer">
     <div class="row mb-4">
+    
         <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -10,12 +11,37 @@
         </nav>
     </div>
     <div class="row mb-2">
-        <div class="col-5 col-md-8 d-flex justify-content-between">
+        <div class="col-6 col-md-4 d-flex justify-content-between pb-3 pb-md-0">
             <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Create link
+                Create link                
+                <!--
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#8a8a8a" class="bi bi-sort-alpha-up" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371zm1.57-.785L11 2.687h-.047l-.652 2.157z"></path>
+                    <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645zm-8.46-.5a.5.5 0 0 1-1 0V3.707L2.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.5.5 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L4.5 3.707z"></path>
+                </svg>
+                -->
             </button>
         </div>
-        <div class="col-7 col-md-4 d-flex justify-content-between">
+        <div class="col-6 col-md-4 d-flex justify-content-end px-auto px-md-0 pb-3 pb-md-0">
+            <div class="dropdown">
+                <button class="btn btn-light" title="Other options" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid lightgray;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#8a8a8a" class="bi bi-sort-alpha-up" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371zm1.57-.785L11 2.687h-.047l-.652 2.157z"></path>
+                        <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645zm-8.46-.5a.5.5 0 0 1-1 0V3.707L2.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.5.5 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L4.5 3.707z"></path>
+                    </svg>
+                    Sort
+                </button>
+
+                <!-- dropdown button -->
+                <ul class="dropdown-menu dropdown-menu-start">
+                    <li><button class="dropdown-item">Delete</button></li>
+                    <li><button class="dropdown-item">Share</button></li>
+                    <li><button class="dropdown-item">Some</button></li>
+                </ul>   
+            </div>  
+        </div>
+        
+        <div class="col-12 col-md-4 d-flex justify-content-between">
             <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
             <datalist id="datalistOptions">
                 <option v-for="url in urls" :key="url.id" :value="url.URL">{{ url.URL }}</option>
@@ -29,8 +55,7 @@
         </div>
     </div>
 
-    <!-- create link modal
-     PUT THIS IN A COMPONENT -->
+    <!-- create link modal -->
     <div class="row">
         <div class="col-12">
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -78,8 +103,9 @@
                         <img src="../assets/logo.png" alt="" width="10% ">
                         <p class="short-url m-0">{{ url.shortURL }}</p>
                     </div>
+                    <!-- Copy url button -->
                     <div class="d-flex align-items-center gap-3">
-                        <button class="btn button-option" title="Copy link">
+                        <button class="btn button-option" title="Copy link" @click="copyUrl(url)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
                             </svg>                    
@@ -137,12 +163,15 @@
 
 export default{
     mounted(){
+        // 
         this.refreshUrl();
     },
     data(){
         return {
+            // stores the API response of refreshUrl() method
             urls: [],
-            URL: ""
+            // stores the "URL" property in the "Create link" modal form
+            URL: ""   
         }
     },
     methods :{
@@ -157,12 +186,14 @@ export default{
             await this.refreshUrl();
         },
         async refreshUrl(){
-            await fetch("http://localhost/linktree/getallurls")
+            await fetch("http://localhost/linktree/urls", {
+                method: "GET"
+            })
             .then(response => response.json())
             .then(data => this.urls = data);
         },
         async insertUrl(){
-            await fetch("http://localhost/linktree/public/index.php", {
+            await fetch("http://localhost/linktree/urls", {
                 method: "POST",
                 body: JSON.stringify({
                     URL: this.URL
@@ -173,15 +204,19 @@ export default{
             .catch(err => console.error(err));
         },
         async deleteUrl(url){
-            await fetch("http://localhost/linktree/deleteurl", {
-                method: "POST",
-                body: JSON.stringify({
-                    URL: url.shortURL
-                })
+            const endpoint = url.shortURL;
+            console.log(endpoint);
+            
+            await fetch(endpoint, {
+                method: "DELETE"
             })
             .then(response => response.json()) 
             .then(data => console.log("Raw response:", data))
             .catch(err => console.error(err));
+        },
+        copyUrl(url){
+            // copies text to the clipboard
+            navigator.clipboard.writeText(url.shortURL);
         }
     }
 }
