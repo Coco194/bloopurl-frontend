@@ -3,7 +3,7 @@
     
 <div class="pageContainer text-center">
     <p class="mb-0" style="color: #068006;">Start for free</p>
-    <h1 class="display-4 fw-bold">Centered screenshot</h1>
+    <h1 class="display-4 fw-bold mb-3">Centered screenshot</h1>
     <div class="col-lg-6 mx-auto">
         <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
@@ -89,8 +89,8 @@
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-center">
                             <div class="card-body">
-                                <h5 class="card-title">Serverless</h5>
-                                <p class="card-text">Deploy without the need for another server</p>
+                                <h5 class="card-title">Link hiding</h5>
+                                <p class="card-text">Hide the original url so the visitors only see the short link</p>
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                         <div class="col-md-8 d-flex align-items-center justify-content-center">
                             <div class="card-body">
                                 <h5 class="card-title">Link expiration</h5>
-                                <p class="card-text">Set expiration dates or time for links</p>
+                                <p class="card-text">Set expiration dates for your short links</p>
                             </div>
                         </div>
                     </div>
@@ -185,9 +185,223 @@
         </div>
     </div>
 
+    <div class="container pageContainer">
+        <!--
+        <div class="row">
+            <div class="col-12">
+                <div class="card rounded-4" style="width: 18rem;">
+                    <div class="card-body">
+                        <h4 class="card-title mb-1 fw-bold">Starter</h4>
+                        <p class="card-text mb-4 fw-medium" style="color: #8a8a8a;">Billed monthly</p>
+                        <hr style="color: #9a9a9a;">
+
+                        card body 
+                        <p class="card-text fw-bold mb-3" style="color: #2a2a2a;">Includes</p>
+                        <div class="d-flex align-items-center mb-2 gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                            </svg>
+                            <p class="card-text" style="color: #8a8a8a;">50 links per month</p>
+                        </div>
+                        <div class="d-flex align-items-center mb-2 gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                            </svg>
+                            <p class="card-text" style="color: #8a8a8a;">Link management</p>
+                        </div>
+                        <div class="d-flex align-items-center mb-2 gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                            </svg>
+                            <p class="card-text" style="color: #8a8a8a;">API access</p>
+                        </div>
+                        <div class="d-flex align-items-center mb-4 gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                            </svg>
+                            <p class="card-text" style="color: #8a8a8a;">24/7 support</p>
+                        </div>      
+                        
+                        <div>
+                            <h5 class="mb-0 fw-bold">$25</h5>
+                            <p style="color: #8a8a8a;">per month</p>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-success"></button>
+
+                </div>
+            </div>
+        </div>
+        -->
+        <div class="row g-4 align-items-center">
+            <div class="col-12 d-flex flex-column align-items-center mb-3">
+                <h1>Choose a plan</h1>
+                <p class="mb-0">Trusted by thousands and used everyday</p>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card p-3 rounded-4">
+                    <div class="card-body">
+                        <h3 class="card-title mb-2 fw-bold">Basic</h3>
+                        <p class="card-text mb-4" style="color: #8a8a8a;">
+                            Basic plan to test out the link shortener for individuals
+                        </p>
+                        <h1 class="card-title mb-0 fw-bold">$0</h1>
+                        <p class="card-text " style="font-size: 0.875rem; color: #4a4a4a;">per month</p>
+
+                        <button class="btn btn-secondary w-100">Get started</button>
+                     
+                        <hr class="my-4">
+
+                        <!-- card body -->
+                        <p class="card-text fw-bold mb-3" style="color: #2a2a2a;">Free includes</p>
+
+                        <div class="d-flex flex-column gap-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                                </svg>
+                                <p class="card-text" style="color: #8a8a8a;">50 links per month</p>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                                </svg>
+                                <p class="card-text" style="color: #8a8a8a;">Link management</p>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                                </svg>
+                                <p class="card-text" style="color: #8a8a8a;">API access</p>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                                </svg>
+                                <p class="card-text" style="color: #8a8a8a;">24/7 support</p>
+                            </div>      
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card p-3 rounded-4" style="box-shadow: 0px 0px 3px #09b32b;">
+                    <div class="card-body">
+                        <span class="badge bg-success mb-3">Most Popular</span>
+                        <h3 class="card-title mb-2 fw-bold">Standard</h3>
+                        <p class="card-text mb-4" style="color: #8a8a8a;">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </p>
+                        <h1 class="card-title mb-0 fw-bold">$49</h1>
+                        <p class="card-text " style="font-size: 0.875rem; color: #4a4a4a;">per month</p>
+
+                        <button class="btn btn-success w-100">Get started</button>
+                     
+                        <hr class="my-4">
+
+                        <!-- card body -->
+                        <p class="card-text fw-bold mb-3" style="color: #2a2a2a;">Free includes</p>
+
+                        <div class="d-flex flex-column gap-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                                </svg>
+                                <p class="card-text" style="color: #8a8a8a;">50 links per month</p>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                                </svg>
+                                <p class="card-text" style="color: #8a8a8a;">Link management</p>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                                </svg>
+                                <p class="card-text" style="color: #8a8a8a;">API access</p>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                                </svg>
+                                <p class="card-text" style="color: #8a8a8a;">24/7 support</p>
+                            </div>      
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card p-3 rounded-4">
+                    <div class="card-body">
+                        <h3 class="card-title mb-2 fw-bold">Professional</h3>
+                        <p class="card-text mb-4" style="color: #8a8a8a;">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </p>
+                        <h1 class="card-title mb-0 fw-bold">$79</h1>
+                        <p class="card-text " style="font-size: 0.875rem; color: #4a4a4a;">per month</p>
+
+                        <button class="btn btn-secondary w-100">Get started</button>
+                     
+                        <hr class="my-4">
+
+                        <!-- card body -->
+                        <p class="card-text fw-bold mb-3" style="color: #2a2a2a;">Free includes</p>
+
+                        <div class="d-flex flex-column gap-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                                </svg>
+                                <p class="card-text" style="color: #8a8a8a;">50 links per month</p>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                                </svg>
+                                <p class="card-text" style="color: #8a8a8a;">Link management</p>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                                </svg>
+                                <p class="card-text" style="color: #8a8a8a;">API access</p>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2fad0c" class="bi bi-check-circle" viewBox="0 0 16 16" style="background-color: #efffeb; border-radius: 100%;">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                                </svg>
+                                <p class="card-text" style="color: #8a8a8a;">24/7 support</p>
+                            </div>      
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container pageContainer d-flex flex-column align-items-center justify-content-center">
-        <h2>Frequently Asked Questions</h2>
-        <div class="accordion" style="width: 80%;">
+        <h2 class="mb-5">Frequently Asked Questions</h2>
+        <div class="accordion" style="width: 100%;">
             <div class="accordion-item">
                 <h2 class="accordion-header">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -227,7 +441,7 @@
         </div>
     </div>
     
-    <div class="container pageContainer">
+    <div class="container pageContainer" style="background-color: lightgrey;">
         <div class="row">
             <div class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <h1>Deploy your short url today for free</h1>
