@@ -26,6 +26,14 @@
         </li>
         
         <!-- Profile -->
+        <!--
+        <li>
+          <router-link to="/login">
+            <button class="btn btn-primary">Login</button>  
+          </router-link>
+          
+        </li>
+        -->
         <li>
           <!-- d-none d-lg-block displays nothing on screens below lg size -->
           <div class="btn-group dropstart d-none d-lg-block">
@@ -98,7 +106,7 @@ export default{
       
     }
   },
-  methods: {                
+  methods: {       
 
   }
 }

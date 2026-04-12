@@ -5,9 +5,9 @@
         <div class="col-12">
             <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '/';">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#" class="link-underline link-underline-opacity-0">Home</a></li>
-                    <li class="breadcrumb-item" aria-current="page">Dashboard</li>
-                    <li class="breadcrumb-item active" aria-current="page">Link</li>
+                    <li class="breadcrumb-item"><a href="#" class="link-underline link-underline-opacity-0">Dashboard</a></li>
+                    <li class="breadcrumb-item" aria-current="page">Link</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ this.urls.short_url }}</li>
                 </ol>
             </nav>
         </div>
@@ -19,12 +19,12 @@
 <div class="container pageContainer">
     <div class="row">
         <div class="col-12" >
-            <div class="rounded-3 p-4 w-100 shadow-sm" style="box-shadow: 0px 0px 6px rgb(200, 200, 200);">
+            <div class="rounded-3 p-4 w-100 shadow-sm" style="border: 1px solid lightgray; box-shadow: 0px 0px 6px rgb(200, 200, 200);">
                 <div class="d-flex justify-content-between align-items-center pb-3">
                     <a href="" class="router-link-active nav-link" style="overflow: auto;">
                         <div class="d-flex align-items-center gap-2" >
                             <img src="../assets/logo.png" alt="" width="6% ">
-                            <p class="short-url m-0">http://localhost/api/urls/5ban</p>
+                            <p class="short-url m-0">http://localhost:8000/api/urls/{{ this.urls.short_url }}</p>
                         </div>
                     </a>
 
@@ -38,7 +38,7 @@
                             </svg>         
                         </button>
 
-                        <button class="btn button-option d-flex align-items-center" title="Edit link" data-bs-toggle="modal" data-bs-target="#editModal">
+                        <button class="btn button-option d-flex align-items-center" title="Edit link" data-bs-toggle="modal" data-bs-target="#editModal" @click="editUrl(urls)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
@@ -47,12 +47,11 @@
                         
                         <button class="btn button-option d-flex align-items-center" title="Other options" type="button" data-bs-offset="-70, 0" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="dropdown">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-                                    </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                                </svg>
 
                                 <ul class="dropdown-menu">
-
                                     <li><button class="dropdown-item">Share</button></li>
                                     <li><button class="dropdown-item" @click="myVueMethod()">Some action</button></li>
                                     <li><button class="dropdown-item">Some option</button></li>
@@ -62,18 +61,22 @@
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center ">
+                <div class="d-flex justify-content-between align-items-center ps-4" style="border-left: 4px solid #e3e3e3;">
+                    {{this.urls.comment}}
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-4">
                     <div class="d-flex align-items-center gap-1" style="overflow: auto;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
                             <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>
                             <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/>
                         </svg>
                         <p class="long-url m-0">
-                            <a href="#" target="_blank" >https://google.com</a>
+                            <a href="#" target="_blank">{{ this.urls.long_url }}</a>
                         </p>
                     </div>
                     
-                    <p class="m-0 p-date">2024-12-29</p>
+                    <p class="m-0 p-date">{{ this.urls.created_at }}</p>
                     
                 </div>
             </div>
@@ -81,7 +84,7 @@
     </div>
 
     <!-- summary stats -->
-    <div class="row g-4"> 
+    <div class="row g-4 mb-4"> 
         <h3 class="pt-5">Summary statistics</h3>
         <div class="col-12 col-md-4">
             <div class="card rounded-3 p-2">
@@ -92,7 +95,7 @@
                             <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
                         </svg>
                     </div>
-                    <h2 class="fw-bold">↑235</h2>
+                    <h2 class="fw-bold">↑{{ this.urls.visit_count }}</h2>
                 </div>
             </div>
         </div>
@@ -118,13 +121,106 @@
                             <path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16m0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15"/>
                         </svg>
                     </div>                    
-                    <h2 class="fw-bold">↑635</h2>
+                    <h2 class="fw-bold">↑{{ stats.referer_count }}</h2>
                 </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    <lineChart v-if="loaded" :dates="dates" :data="data" class="rounded-3" style="border: 1px solid lightgray;">Chart couldnt be loaded</lineChart>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-6 d-flex">
+            <div class="card rounded-3 p-4 w-100">
+                <table class="table table-hover caption-top">
+                    <caption>Browsers</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col" class="text-end">Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Internet explorer</td>
+                            <td class="text-end">15</td>
+                        </tr>
+                        <tr>
+                            <td>Chrome</td>
+                            <td class="text-end">7</td>
+                        </tr>
+                        <tr>
+                            <td>Opera</td>
+                            <td class="text-end">26</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-6 d-flex">
+            <div class="card rounded-3 p-4 w-100 ">
+                <table class="table table-hover caption-top">
+                    <caption>Browsers</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Browser</th>
+                            <th scope="col" class="text-end">Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Internet explorer</td>
+                            <td class="text-end">15</td>
+                        </tr>
+                        <tr>
+                            <td>Chrome</td>
+                            <td class="text-end">7</td>
+                        </tr>
+                        <tr>
+                            <td>Opera</td>
+                            <td class="text-end">26</td>
+                        </tr>
+                        <tr>
+                            <td>Opera</td>
+                            <td class="text-end">26</td>
+                        </tr>
+                         <tr>
+                            <td>Opera</td>
+                            <td class="text-end">26</td>
+                        </tr>
+                        <tr>
+                            <td>Opera</td>
+                            <td class="text-end">26</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 
+<!-- chart section
+<div class="container pageContainer">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    
+                    <lineChart v-if="loaded" :dates="dates" :data="data" class="rounded-3" style="border: 1px solid lightgray;">Chart couldnt be loaded</lineChart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->
 
 
 
@@ -141,7 +237,7 @@
                 <form action="/" method="POST">
                     <div class="mb-3">
                         <label for="ModalUrl" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Url</label>
-                        <input type="text" class="form-control" id="ModalUrl" :placeholder="this.url" style="font-size: 0.875rem;" v-model="URL">
+                        <input type="text" class="form-control" id="ModalUrl" :placeholder="this.urls.long_url" style="font-size: 0.875rem;" v-model="url">
                     </div>
                     <div class="mb-3">
                         <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Alias</label>
@@ -149,34 +245,115 @@
                     </div>
                     <div class="mb-3">
                         <label for="ModalComment" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Comment</label>
-                        <textarea class="form-control" id="ModalComment" :placeholder="this.comment" style="font-size: 0.875rem;" v-model="Comment"></textarea>
+                        <textarea class="form-control" id="ModalComment" :placeholder="this.urls.comment" style="font-size: 0.875rem;" v-model="comment"></textarea>
                     </div>
                     <div class="mb-0">
-                        <label for="ModalExpiration" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Expiration</label> 
-                        <select class="form-select" id="ModalExpiration" style="font-size: 0.875rem; color: #0a0a0a;">
-                            <option selected>Choose expiration time</option>
-                            <option value="1">One week</option>
-                            <option value="2">Two weeks</option>
-                            <option value="3">Three weeks </option>
-                            <option value="4">Four weeks </option>
-                        </select>
+                        <label for="ModalExpiration" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Expiration (yy-mm-dd)</label> 
+                        <input class="form-control" id="ModalExpiration" placeholder="Enter a date" style="font-size: 0.875rem; color: #0a0a0a;" v-model="expires_at">
                     </div>
                 </form>
             </div>
             <div class="modal-footer border-0">
                 <button class="btn btn-light " data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;">Close</button>
-                <button class="btn btn-dark" data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="insert()">Save</button>
+                <button class="btn btn-dark" data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="afterUpdateUrl()">Save</button>
             </div>
         </div>
     </div>
 </div>
 </template>
 
+
 <script>
+
+import lineChart from '../components/lineChart.vue';
+
 export default{
+    mounted(){
+        this.refreshUrl();
+        this.getStatistics();
+    },
+    components: {
+        lineChart
+    },
+    data(){
+        return{
+            // store the short_url (not decoded)
+            id : this.$route.params.id,
+            // stores the api response as an js object
+            urls: {},     
+
+            // statistics
+            stats: String,
+            
+            // for the create link modal
+            url: "",
+            comment: "",
+            expires_at: "",
+
+            // chart data
+            loaded: false,
+            dates: [],
+            data: []
+        }
+    },
     methods:{
+        async afterUpdateUrl(){
+            await this.updateUrl();
+            await this.refreshUrl();
+        },
+        async refreshUrl(){
+            await fetch("http://localhost:8000/api/urls/filter?url=" + this.id, {
+                method: "GET"
+            })
+            .then(response => response.json())
+            .then(data => this.urls = data)
+            .then(data => console.log(data));
+
+            console.log(this.urls.long_url);
+        },
+        async getStatistics(){
+            await fetch("http://localhost:8000/api/statistics/" + this.id, {
+                method: "GET"
+            })
+            .then(response => response.json())
+            .then(data => this.stats = data)
+            .then(data => console.log(data));
+
+            this.dates = this.stats.dates;
+            this.data = this.stats.data;
+
+            this.loaded = true;
+            //console.log(this.stats.datasets);
+        },
+        async updateUrl(){
+
+            const endpoint = "http://localhost:8000/api/urls/" + this.id;
+
+            await fetch(endpoint, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    longUrl: this.url,
+                    comments: this.comment,
+                    expires_at: this.expires_at
+                })
+            })
+            .then(response => response.json()) 
+            .then(data => console.log("Response:", data))
+            .catch(err => console.error(err));
+        },
+        // Set the field inside edit url according to the API response data 
+        editUrl(url){
+            this.url = url.long_url;
+            this.comment = url.comment;
+            this.expires_at = url.expires_at;
+        },
         myVueMethod(){
             console.log("Hello");
+            console.log(this.id);
+            console.log(this.$route.params.id);
         }
     }
 }
@@ -185,9 +362,6 @@ export default{
 <style>
 .navContainer{
     padding: 1rem 2rem;
-    /*position: sticky; 
-    top: 0; 
-    z-index: 999; */
     background-color: rgb(255, 255, 255);
 }
 

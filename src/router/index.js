@@ -24,7 +24,9 @@ const routes = [
     component: dashboardPage
   },
   {
-    path: '/link',
+    name: "linkPage",
+    // passing route params
+    path: '/link/:id',
     component: LinkPage
   }
 

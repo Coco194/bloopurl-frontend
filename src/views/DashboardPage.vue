@@ -12,7 +12,7 @@
     </div>
     <div class="row mb-2">
         <div class="col-6 col-md-5 d-flex justify-content-between align-items-center pb-3 pb-md-0">
-            <button class="btn btn-dark d-flex align-items-center gap-2" title="Create link" data-bs-toggle="modal" data-bs-target="#createModal" @click="createUrl()">
+            <button class="btn btn-dark d-flex align-items-center gap-2" title="Create link" data-bs-toggle="modal" data-bs-target="#createModal" @click="afterInsertUrl()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                 </svg>
@@ -38,10 +38,10 @@
         </div>
         
         <div class="col-12 col-md-3 d-flex justify-content-between">
-            <input class="form-control" id="search" list="options" placeholder="Search links..." v-model="searchBar" @input="searchUrl()">
-            <datalist id="options">
+            <input class="form-control" id="search" list="options" placeholder="Search links..." v-model="searchBar" @change="searchUrl()">
+            <!--<datalist id="options">
                 <option v-for="url in urls" :key="url.id" :value="url.short_url">{{ "https://localhost/api/urls/" + url.short_url }}</option>
-            </datalist>            
+            </datalist> -->           
         </div>
     </div>
 
@@ -52,22 +52,22 @@
     </div>
 
     <!-- skeleton loader -->
-     <div class="row g-4" v-if="loading">
+     <div class="row g-4" v-if="isSkeletonLoading">
         <skeleton v-for="n in 9" :key="n"></skeleton>        
      </div>
 
     <!-- spinner loader -->
-    <div class="d-flex justify-content-center py-5" v-if="loading">
+    <div class="d-flex justify-content-center py-5" v-if="isSpinnerLoading">
         <spinner></spinner>
     </div>
 
     <!-- Cards UI -->
-    <div class="row g-4">        
+    <div class="row g-4" v-if="urls.length >= 1">        
         <div class="col-12 col-lg-6 col-xl-4" v-for="url in urls" :key="url.id">
             <div class="p-4" style="border: 1px solid rgb(214, 214, 214); border-radius: 1rem; box-shadow: 0 1px 3px rgb(200, 200, 200);">
 
                 <div class="d-flex justify-content-between align-items-center pb-3" >
-                    <router-link to="/Link" class="router-link-active nav-link">
+                    <router-link :to="{ name: 'linkPage', params: { id: url.id } }" class="router-link-active nav-link">
                         <div class="d-flex align-items-center gap-2" style="overflow: auto;">
                             <img src="../assets/logo.png" alt="" width="6% ">
                             <p class="short-url m-0" style="text-decoration: none;">{{ "http://localhost/api/urls/" + url.short_url }}</p>
@@ -122,6 +122,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row g-4" v-if="urls.length <= 0 && !isSpinnerLoading">
+        <div class="col-12" style="text-align: center;">
+            <p>Hmm looks empty</p>    
+        </div>
+        
     </div>
 </div>
 
@@ -194,7 +200,7 @@
             </div>
             <div class="modal-footer border-0">
                 <button class="btn btn-light " data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;">Close</button>
-                <button class="btn btn-dark" data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="updateUrl()">Save</button>
+                <button class="btn btn-dark" data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="afterUpdateUrl()">Save</button>
             </div>
         </div>
     </div>
@@ -218,7 +224,8 @@ export default{
     data(){
         return {
             // stores the state of the api (received or not received)
-            loading: true,
+            isSkeletonLoading: true,
+            isSpinnerLoading: false,
 
             // stores the API response of refreshUrl() method
             urls: [],
@@ -240,6 +247,10 @@ export default{
             await this.insertUrl();
             await this.refreshUrl();
         },
+        async afterUpdateUrl(){
+            await this.updateUrl();
+            await this.refreshUrl();
+        },
         async afterDeleteUrl(url){
             await this.deleteUrl(url);
             await this.refreshUrl();
@@ -253,7 +264,7 @@ export default{
             .then(data => console.log(data));
 
             // set loading as false to stop showing loading animation
-            this.loading = false;
+            this.isSkeletonLoading = false;
         },
         async insertUrl(){
             await fetch("http://localhost:8000/api/urls", {
@@ -289,7 +300,33 @@ export default{
             .then(data => console.log("Response:", data))
             .catch(err => console.error(err));
         },
+        async searchUrl(){
+            // clear the contents inside urls array
+            this.urls = [];
 
+            // stop executing if there is no user input in the search bar
+            if(this.searchBar == ""){
+                this.refreshUrl();
+                return;
+            }
+
+            this.isSpinnerLoading = true;
+
+            await fetch("http://localhost:8000/api/urls/filter?url=" + this.searchBar, {
+                method: "GET"
+            })
+            .then(response => response.json())
+            .then(data => {
+                // if there are no "keys" in the api response then do nothing (urls array is made empty initially)
+                if(Object.keys(data).length === 0){
+                    //this.urls = [];
+                    return;
+                }
+                this.urls.push(data);
+            });  
+
+            this.isSpinnerLoading = false;
+        },
         async deleteUrl(url){
             const endpoint = "http://localhost:8000/api/urls/" + url.short_url;
             console.log(endpoint);
@@ -306,6 +343,7 @@ export default{
         },
         async newestUrlFirst(method){
             this.loading = true;
+            
             const endpoint = "http://localhost/linktree-backend/urls?sort=" + method; 
             await fetch(endpoint, {
                 method: "GET"
@@ -319,7 +357,7 @@ export default{
             this.newestUrlFirst(method);
         },
         copyUrl(url){
-            // copies text to the clipboard
+            // copies text to the clipboard 
             navigator.clipboard.writeText("http://localhost:8000/api/urls/" + url.short_url);
         },
         createUrl(){
@@ -335,25 +373,12 @@ export default{
             // set url as null if empty
             this.comment = url.comment ?? "Hmm no comment here";
             this.expires_at = url.expires_at ?? null;
-        },
-        searchUrl(){
-            //fetch("/linktree/links/" + this.searchBar)
-            //console.log("/linktree/links/" + this.searchBar);
-            //console.log(this.urls);
-            
-            for(let i=0; i < this.urls.length; i++){
-                if(this.urls[i].shortUrl == this.searchBar){
-                    console.log(this.urls[i]);
-                    break
-                }
-                
-            }
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
 .navContainer{
     padding: 1rem 2rem;
     /*position: sticky; 
