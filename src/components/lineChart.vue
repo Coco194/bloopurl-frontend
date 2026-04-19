@@ -34,6 +34,11 @@ export default {
                 layout: {
                     padding: 40
                 },
+                scale: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
                 plugins: {
                     title: {
                         display: true,
@@ -41,8 +46,8 @@ export default {
                         color: "black",
                         align: "start",
                         font: {
-                                size: 24,
-                                weight: "bold"
+                            size: 24,
+                            weight: "bold"
                         }
                     }
                 }

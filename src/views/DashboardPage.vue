@@ -256,49 +256,60 @@ export default{
             await this.refreshUrl();
         },
         async refreshUrl(){
-            await fetch("http://localhost:8000/api/urls", {
-                method: "GET"
-            })
-            .then(response => response.json())
-            .then(data => this.urls = data)
-            .then(data => console.log(data));
-
-            // set loading as false to stop showing loading animation
-            this.isSkeletonLoading = false;
+            try{
+                await fetch("http://localhost:8000/api/urls", {
+                    method: "GET"
+                })
+                .then(response => response.json())
+                .then(data => this.urls = data)
+                .then(data => console.log(data));
+            }catch(e){
+                console.log(e);
+            }finally{
+                // set loading as false to stop showing loading animation
+                this.isSkeletonLoading = false;
+            }
         },
         async insertUrl(){
-            await fetch("http://localhost:8000/api/urls", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    url: this.url,
-                    comment: this.comment,
-                    expires_at: this.expires_at
+            try{
+                await fetch("http://localhost:8000/api/urls", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        url: this.url,
+                        comment: this.comment,
+                        expires_at: this.expires_at
+                    })
                 })
-            })
-            .then(response => response.json()) 
-            .then(data => console.log("Response:", data))
-            .catch(err => console.error(err));
+                .then(response => response.json()) 
+                .then(data => console.log("Response:", data))
+            }catch(e){
+                console.log(e);
+            }
+
         },
         async updateUrl(){
-            const endpoint = "http://localhost:8000/api/urls/" + this.selectUrl;
+            try{
+                const endpoint = "http://localhost:8000/api/urls/" + this.selectUrl;
 
-            await fetch(endpoint, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    longUrl: this.url,  
-                    comments: this.comment,
-                    expires_at: this.expires_at
+                await fetch(endpoint, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        longUrl: this.url,  
+                        comments: this.comment,
+                        expires_at: this.expires_at
+                    })
                 })
-            })
-            .then(response => response.json()) 
-            .then(data => console.log("Response:", data))
-            .catch(err => console.error(err));
+                .then(response => response.json()) 
+                .then(data => console.log("Response:", data))
+            }catch(e){
+                console.log(e);
+            }
         },
         async searchUrl(){
             // clear the contents inside urls array
@@ -312,45 +323,60 @@ export default{
 
             this.isSpinnerLoading = true;
 
-            await fetch("http://localhost:8000/api/urls/filter?url=" + this.searchBar, {
-                method: "GET"
-            })
-            .then(response => response.json())
-            .then(data => {
-                // if there are no "keys" in the api response then do nothing (urls array is made empty initially)
-                if(Object.keys(data).length === 0){
-                    //this.urls = [];
-                    return;
-                }
-                this.urls.push(data);
-            });  
-
-            this.isSpinnerLoading = false;
+            try{
+                await fetch("http://localhost:8000/api/urls/filter?url=" + this.searchBar, {
+                    method: "GET"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // if there are no "keys" in the api response then do nothing (urls array is made empty initially)
+                    if(Object.keys(data).length === 0){
+                        //this.urls = [];
+                        return;
+                    }
+                    this.urls.push(data);
+                });  
+            }catch(e){
+                console.log(e);
+            }finally{
+                this.isSpinnerLoading = false;
+            }
         },
         async deleteUrl(url){
-            const endpoint = "http://localhost:8000/api/urls/" + url.short_url;
-            console.log(endpoint);
-            
-            await fetch(endpoint, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-            })
-            .then(response => response.json()) 
-            .then(data => console.log("Raw response:", data))
-            .catch(err => console.error(err));
+            try{
+                const endpoint = "http://localhost:8000/api/urls/" + url.short_url;
+                
+                await fetch(endpoint, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                })
+                .then(response => response.json()) 
+                .then(data => console.log("Raw response:", data))
+
+                console.log("Deleted: ", url);
+            }catch(e){
+                console.log(e);
+            }
+
         },
         async newestUrlFirst(method){
             this.loading = true;
             
-            const endpoint = "http://localhost/linktree-backend/urls?sort=" + method; 
-            await fetch(endpoint, {
-                method: "GET"
-            })
-            .then(response => response.json())
-            .then(data => this.urls = data);
-            this.loading = false;
+            try{
+                const endpoint = "http://localhost/linktree-backend/urls?sort=" + method; 
+
+                await fetch(endpoint, {
+                    method: "GET"
+                })
+                .then(response => response.json())
+                .then(data => this.urls = data);
+            }catch(e){
+                console.log(e);
+            }finally{
+                this.loading = false;
+            }
         },   
         // method for sorting option     
         setSort(method){

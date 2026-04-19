@@ -141,7 +141,7 @@
         <div class="col-6 d-flex">
             <div class="card rounded-3 p-4 w-100">
                 <table class="table table-hover caption-top">
-                    <caption>Browsers</caption>
+                    <caption>Languages</caption>
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
@@ -149,17 +149,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Internet explorer</td>
-                            <td class="text-end">15</td>
-                        </tr>
-                        <tr>
-                            <td>Chrome</td>
-                            <td class="text-end">7</td>
-                        </tr>
-                        <tr>
-                            <td>Opera</td>
-                            <td class="text-end">26</td>
+                        <tr v-for="i in stats.languages" :key="i.language">
+                            <td>{{ i.language }}</td>
+                            <td class="text-end">{{ i.total }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -176,29 +168,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Internet explorer</td>
-                            <td class="text-end">15</td>
-                        </tr>
-                        <tr>
-                            <td>Chrome</td>
-                            <td class="text-end">7</td>
-                        </tr>
-                        <tr>
-                            <td>Opera</td>
-                            <td class="text-end">26</td>
-                        </tr>
-                        <tr>
-                            <td>Opera</td>
-                            <td class="text-end">26</td>
-                        </tr>
-                         <tr>
-                            <td>Opera</td>
-                            <td class="text-end">26</td>
-                        </tr>
-                        <tr>
-                            <td>Opera</td>
-                            <td class="text-end">26</td>
+                        <tr v-for="i in stats.browsers" :key="i.user_agent">
+                            <td>{{ i.user_agent }}</td>
+                            <td class="text-end">{{ i.total }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -302,47 +274,62 @@ export default{
             await this.refreshUrl();
         },
         async refreshUrl(){
-            await fetch("http://localhost:8000/api/urls/filter?url=" + this.id, {
-                method: "GET"
-            })
-            .then(response => response.json())
-            .then(data => this.urls = data)
-            .then(data => console.log(data));
+            try{
+                await fetch("http://localhost:8000/api/urls/filter?url=" + this.id, {
+                    method: "GET"
+                })
+                .then(response => response.json())
+                .then(data => this.urls = data)
+                .then(data => console.log(data));
 
-            console.log(this.urls.long_url);
+                console.log(this.urls.long_url);
+            }catch(e){
+                console.log(e);
+            }
+
         },
         async getStatistics(){
-            await fetch("http://localhost:8000/api/statistics/" + this.id, {
-                method: "GET"
-            })
-            .then(response => response.json())
-            .then(data => this.stats = data)
-            .then(data => console.log(data));
+            try{
+                await fetch("http://localhost:8000/api/statistics/" + this.id, {
+                    method: "GET"
+                })
+                .then(response => response.json())
+                .then(data => this.stats = data)
+                .then(data => console.log(data));
 
-            this.dates = this.stats.dates;
-            this.data = this.stats.data;
+                this.dates = this.stats.dates;
+                this.data = this.stats.data;
+            }catch(e){
+                console.log(e);
+            }finally{
+                this.loaded = true;
+            }
 
-            this.loaded = true;
+            //console.log(this.stats);
             //console.log(this.stats.datasets);
         },
         async updateUrl(){
 
-            const endpoint = "http://localhost:8000/api/urls/" + this.id;
+            try{
+                const endpoint = "http://localhost:8000/api/urls/" + this.id;
 
-            await fetch(endpoint, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    longUrl: this.url,
-                    comments: this.comment,
-                    expires_at: this.expires_at
+                await fetch(endpoint, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        longUrl: this.url,
+                        comments: this.comment,
+                        expires_at: this.expires_at
+                    })
                 })
-            })
-            .then(response => response.json()) 
-            .then(data => console.log("Response:", data))
-            .catch(err => console.error(err));
+                .then(response => response.json()) 
+                .then(data => console.log("Response:", data))
+            }catch(e){
+                console.log(e);
+            }
+
         },
         // Set the field inside edit url according to the API response data 
         editUrl(url){
