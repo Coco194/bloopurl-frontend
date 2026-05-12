@@ -23,8 +23,10 @@
                 <div class="d-flex justify-content-between align-items-center pb-3">
                     <a href="" class="router-link-active nav-link" style="overflow: auto;">
                         <div class="d-flex align-items-center gap-2" >
-                            <img src="../assets/logo.png" alt="" width="6% ">
-                            <p class="short-url m-0">http://localhost:8000/api/urls/{{ this.urls.short_url }}</p>
+                            <img src="../assets/logo.png" alt="" width="5% ">
+                            <p class="short-url m-0">http://localhost:8000/api/{{ this.urls.short_url }}</p>
+                            <span v-if="this.urls.status === 'active'" class="badge text-bg-success">{{ this.urls.status }}</span>
+                            <span v-else class="badge text-bg-danger">{{ this.urls.status }}</span>
                         </div>
                     </a>
 
@@ -179,23 +181,6 @@
     </div>
 </div>
 
-<!-- chart section
-<div class="container pageContainer">
-    <div class="row">
-        <div class="col-12">
-            <div class="row">
-                <div class="col-12">
-                    
-                    <lineChart v-if="loaded" :dates="dates" :data="data" class="rounded-3" style="border: 1px solid lightgray;">Chart couldnt be loaded</lineChart>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
--->
-
-
-
 <!-- edit modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -290,7 +275,7 @@ export default{
         },
         async getStatistics(){
             try{
-                await fetch("http://localhost:8000/api/statistics/" + this.id, {
+                await fetch("http://localhost:8000/api/" + this.id + "/statistics", {
                     method: "GET"
                 })
                 .then(response => response.json())

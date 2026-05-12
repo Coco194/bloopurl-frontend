@@ -12,7 +12,7 @@
     </div>
     <div class="row mb-2">
         <div class="col-6 col-md-5 d-flex justify-content-between align-items-center pb-3 pb-md-0">
-            <button class="btn btn-dark d-flex align-items-center gap-2" title="Create link" data-bs-toggle="modal" data-bs-target="#createModal" @click="afterInsertUrl()">
+            <button class="btn btn-dark d-flex align-items-center gap-2" title="Create link" data-bs-toggle="modal" data-bs-target="#createModal">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                 </svg>
@@ -25,14 +25,14 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5m-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5"/>
                     </svg>
-                    Sort
+                    {{ sortOption }}
                 </button>
 
                 <!-- dropdown button -->
                 <ul class="dropdown-menu dropdown-menu-start">
                     <li><h6 class="dropdown-header">Options</h6></li>
-                    <li><a href="#" class="dropdown-item" @click.prevent="setSort('ASC')">Newest first</a></li>
-                    <li><a href="#" class="dropdown-item" @click.prevent="setSort('DESC')">Oldest first</a></li>
+                    <li><a href="#" class="dropdown-item" @click.prevent="setSort('asc')">Ascending</a></li>
+                    <li><a href="#" class="dropdown-item" @click.prevent="setSort('desc')">Descending</a></li>
                 </ul>   
             </div>  
         </div>
@@ -65,14 +65,23 @@
     <div class="row g-4" v-if="urls.length >= 1">        
         <div class="col-12 col-lg-6 col-xl-4" v-for="url in urls" :key="url.id">
             <div class="p-4" style="border: 1px solid rgb(214, 214, 214); border-radius: 1rem; box-shadow: 0 1px 3px rgb(200, 200, 200);">
-
+                <!--
+                <div class="d-flex justify-content-start align-items-center pb-2">
+                    <span v-if="url.status === 'active'" class="badge text-bg-success">{{ url.status }}</span>
+                    <span v-else class="badge text-bg-danger">{{ url.status }}</span>
+                </div>
+                -->
+                <!-- long url and buttons section -->
                 <div class="d-flex justify-content-between align-items-center pb-3" >
                     <router-link :to="{ name: 'linkPage', params: { id: url.id } }" class="router-link-active nav-link">
                         <div class="d-flex align-items-center gap-2" style="overflow: auto;">
-                            <img src="../assets/logo.png" alt="" width="6% ">
-                            <p class="short-url m-0" style="text-decoration: none;">{{ "http://localhost/api/urls/" + url.short_url }}</p>
+                            <!--<img src="../assets/logo.png" alt="" width="6% ">-->
+                            <p class="short-url m-0" style="text-decoration: none;">{{ "http://localhost/api/" + url.short_url }}</p>
+                            <span v-if="url.status === 'active'" class="badge text-bg-success">{{ url.status }}</span>
+                            <span v-else class="badge text-bg-danger">{{ url.status }}</span>
                         </div>
                     </router-link>
+
                     <!-- cards UI buttons -->
                     <div class="d-flex align-items-center gap-3">
                         <button class="btn button-option d-flex align-items-center" title="Copy link" @click="copyUrl(url)">
@@ -148,7 +157,7 @@
                         <input type="text" class="form-control" id="ModalUrl" placeholder="https://example.com" style="font-size: 0.875rem;" v-model="url">
                     </div>
                     <div class="mb-3">
-                        <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Alias</label>
+                        <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Slug</label>
                         <input type="text" class="form-control" id="ModalAlias" placeholder="instapost124" style="font-size: 0.875rem;" readonly>
                     </div>
                     <div class="mb-3">
@@ -185,7 +194,7 @@
                         <input type="text" class="form-control" id="ModalUrl" :placeholder="this.url" style="font-size: 0.875rem;" v-model="url">
                     </div>
                     <div class="mb-3">
-                        <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Alias</label>
+                        <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Slug</label>
                         <input type="text" class="form-control" id="ModalAlias" placeholder="instapost124" style="font-size: 0.875rem;" readonly>
                     </div>
                     <div class="mb-3">
@@ -233,6 +242,7 @@ export default{
             // "searchBar" stores search input and "selectedShortLink" stores the short link for modal edit link 
             searchBar: "",
             selectUrl: "", // for update() 
+            sortOption: "asc",
 
             // for the create link modal
             url: "",
@@ -361,11 +371,11 @@ export default{
             }
 
         },
-        async newestUrlFirst(method){
+        async setSort(method){
             this.loading = true;
-            
+
             try{
-                const endpoint = "http://localhost/linktree-backend/urls?sort=" + method; 
+                const endpoint = "http://localhost:8000/api/urls?sort=" + method; 
 
                 await fetch(endpoint, {
                     method: "GET"
@@ -375,16 +385,14 @@ export default{
             }catch(e){
                 console.log(e);
             }finally{
+                this.sortOption = method;
                 this.loading = false;
             }
-        },   
-        // method for sorting option     
-        setSort(method){
-            this.newestUrlFirst(method);
+
         },
         copyUrl(url){
             // copies text to the clipboard 
-            navigator.clipboard.writeText("http://localhost:8000/api/urls/" + url.short_url);
+            navigator.clipboard.writeText("http://localhost:8000/api/" + url.short_url);
         },
         createUrl(){
             // clear out the placeholders if we opened 'edit' modal beforehand
