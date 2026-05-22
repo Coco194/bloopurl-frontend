@@ -158,7 +158,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Slug</label>
-                        <input type="text" class="form-control" id="ModalAlias" placeholder="instapost124" style="font-size: 0.875rem;" readonly>
+                        <input type="text" class="form-control" id="ModalSlug" placeholder="instapost124" style="font-size: 0.875rem;" v-model="slug">
                     </div>
                     <div class="mb-3">
                         <label for="ModalComment" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Comment</label>
@@ -246,6 +246,7 @@ export default{
 
             // for the create link modal
             url: "",
+            slug: "",
             comment: "",
             expires_at: ""
         }
@@ -289,6 +290,7 @@ export default{
                     },
                     body: JSON.stringify({
                         url: this.url,
+                        slug: this.slug,
                         comment: this.comment,
                         expires_at: this.expires_at
                     })
@@ -297,6 +299,13 @@ export default{
                 .then(data => console.log("Response:", data))
             }catch(e){
                 console.log(e);
+            }finally{
+                this.url = "";
+                this.slug = "";
+                this.comment = "";
+                this.expires_at = "";
+                
+                console.log("Cleared the form after submitting");
             }
 
         },
