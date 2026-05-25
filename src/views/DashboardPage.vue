@@ -72,13 +72,17 @@
                 </div>
                 -->
                 <!-- long url and buttons section -->
-                <div class="d-flex justify-content-between align-items-center pb-3" >
-                    <router-link :to="{ name: 'linkPage', params: { id: url.id } }" class="router-link-active nav-link">
-                        <div class="d-flex align-items-center gap-2" style="overflow: auto;">
+                <div class="d-flex justify-content-start align-items-center">
+                    <span v-if="url.status === 'active'" class="badge text-bg-success">{{ url.status }}</span>
+                    <span v-else class="badge text-bg-danger">{{ url.status }}</span>                    
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pb-2 pt-2 gap-3" >
+
+                    <router-link :to="{ name: 'linkPage', params: { id: url.id } }" class="router-link-active nav-link" style="min-width: 0;">
+                        <div class="d-flex align-items-center gap-2" style="overflow: hidden;">
                             <!--<img src="../assets/logo.png" alt="" width="6% ">-->
                             <p class="short-url m-0" style="text-decoration: none;">{{ "http://localhost/api/" + url.short_url }}</p>
-                            <span v-if="url.status === 'active'" class="badge text-bg-success">{{ url.status }}</span>
-                            <span v-else class="badge text-bg-danger">{{ url.status }}</span>
                         </div>
                     </router-link>
 
@@ -105,9 +109,10 @@
 
                                 <!-- dropdown -->
                                 <ul class="dropdown-menu">
-                                    <li><button class="dropdown-item" @click="afterDeleteUrl(url)">Delete</button></li>
                                     <li><button class="dropdown-item">Share</button></li>
-                                    <li><button class="dropdown-item">Some option</button></li>
+                                    <li v-if="url.status === 'active'"><button class="dropdown-item" @click="updateStatus(url)">Deactivate</button></li>
+                                    <li v-else><button class="dropdown-item" @click="updateStatus(url)">Activate</button></li>
+                                    <li><button class="dropdown-item" @click="afterDeleteUrl(url)">Delete</button></li>
                                 </ul>   
                             </div>  
                         </button>
@@ -171,7 +176,7 @@
                 </form>
             </div>
             <div class="modal-footer border-0">
-                <button class="btn btn-light" data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;">Close</button>
+                <button class="btn btn-light" data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="clearForm()">Cancel</button>
                 <button class="btn btn-dark"  data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="afterInsertUrl()">Save</button>
             </div>
         </div>
@@ -195,7 +200,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Slug</label>
-                        <input type="text" class="form-control" id="ModalAlias" placeholder="instapost124" style="font-size: 0.875rem;" readonly>
+                        <input type="text" class="form-control" id="ModalSlug" :placeholder="this.slug" style="font-size: 0.875rem;" v-model="slug" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="ModalComment" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Comment</label>
@@ -208,7 +213,7 @@
                 </form>
             </div>
             <div class="modal-footer border-0">
-                <button class="btn btn-light " data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;">Close</button>
+                <button class="btn btn-light " data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="clearForm()">Cancel</button>
                 <button class="btn btn-dark" data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="afterUpdateUrl()">Save</button>
             </div>
         </div>
@@ -304,7 +309,7 @@ export default{
                 this.slug = "";
                 this.comment = "";
                 this.expires_at = "";
-                
+
                 console.log("Cleared the form after submitting");
             }
 
@@ -399,6 +404,30 @@ export default{
             }
 
         },
+        async updateStatus(url){
+            try{
+                const endpoint = "http://localhost:8000/api/urls/" + url.short_url;
+
+                await fetch(endpoint, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        shortUrl: url.short_url,
+                        status: url.status
+                    })
+                })
+                .then(response => response.json())
+                .then(data => console.log("Response:", data))
+
+                // refresh to update the status field
+                this.refreshUrl();
+            }catch(e){
+                console.log(e);
+            }
+            
+        },
         copyUrl(url){
             // copies text to the clipboard 
             navigator.clipboard.writeText("http://localhost:8000/api/" + url.short_url);
@@ -414,8 +443,15 @@ export default{
             this.url = url.long_url;
             this.selectUrl = url.short_url ?? null;
             // set url as null if empty
+            this.slug = url.short_url?? "";
             this.comment = url.comment ?? "Hmm no comment here";
             this.expires_at = url.expires_at ?? null;
+        },
+        clearForm(){
+            this.url = "";
+            this.slug = "";
+            this.comment = "";
+            this.expires_at = "";
         }
     }
 }

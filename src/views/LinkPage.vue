@@ -5,9 +5,9 @@
         <div class="col-12">
             <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '/';">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#" class="link-underline link-underline-opacity-0">Dashboard</a></li>
+                    <li class="breadcrumb-item" aria-current="page">Dashboard</li>
                     <li class="breadcrumb-item" aria-current="page">Link</li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ this.urls.short_url }}</li>
+                    <li class="breadcrumb-item active">{{ this.urls.short_url }}</li>
                 </ol>
             </nav>
         </div>
