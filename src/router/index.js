@@ -5,6 +5,8 @@ import aboutPage from '../views/AboutPage.vue'
 import notFound from '../views/NotFound.vue'
 import dashboardPage from '../views/DashboardPage.vue'
 import LinkPage from '../views/LinkPage.vue'
+import registerPage from '../views/RegisterPage.vue'
+import loginPage from '../views/LoginPage.vue'
 
 const routes = [
   { 
@@ -21,7 +23,15 @@ const routes = [
   },
   {
     path: '/dashboard',
-    component: dashboardPage
+    component: dashboardPage,
+  },
+  {
+    path: '/register',
+    component: registerPage
+  },
+  {
+    path: "/login",
+    component: loginPage
   },
   {
     name: "linkPage",

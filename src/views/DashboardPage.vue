@@ -226,7 +226,6 @@
 import skeleton from "../components/skeletonComponent.vue"
 import spinner from "../components/spinnerComponent.vue"
 
-
 export default{
     mounted(){
         this.refreshUrl();
@@ -273,12 +272,25 @@ export default{
         },
         async refreshUrl(){
             try{
-                await fetch("http://localhost:8000/api/urls", {
-                    method: "GET"
-                })
-                .then(response => response.json())
-                .then(data => this.urls = data)
-                .then(data => console.log(data));
+                const response = await fetch("http://localhost:8000/api/urls", {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Accept": "application/json",
+                    }
+                });
+
+                this.urls = await response.json();
+                
+                console.log(this.urls);
+  
+                // authentication 
+                if(response.ok){
+                    return;
+                }else{
+                    this.$router.push("/login");
+                    return;
+                }
             }catch(e){
                 console.log(e);
             }finally{
@@ -288,10 +300,20 @@ export default{
         },
         async insertUrl(){
             try{
+                const token = decodeURIComponent(
+                document.cookie
+                    .split('; ')
+                    .find(row => row.startsWith('XSRF-TOKEN='))
+                    .split('=')[1]
+                )
+            
                 await fetch("http://localhost:8000/api/urls", {
                     method: "POST",
+                    credentials: "include",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "X-XSRF-TOKEN": token
                     },
                     body: JSON.stringify({
                         url: this.url,
@@ -301,7 +323,8 @@ export default{
                     })
                 })
                 .then(response => response.json()) 
-                .then(data => console.log("Response:", data))
+                .then(data => console.log("Response:", data));
+
             }catch(e){
                 console.log(e);
             }finally{
@@ -312,16 +335,25 @@ export default{
 
                 console.log("Cleared the form after submitting");
             }
-
         },
         async updateUrl(){
             try{
+                const token = decodeURIComponent(
+                document.cookie
+                    .split('; ')
+                    .find(row => row.startsWith('XSRF-TOKEN='))
+                    .split('=')[1]
+                )
+
                 const endpoint = "http://localhost:8000/api/urls/" + this.selectUrl;
 
                 await fetch(endpoint, {
                     method: "PUT",
+                    credentials: "include", 
                     headers: {
-                        "Content-Type": "application/json"
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "X-XSRF-TOKEN": token
                     },
                     body: JSON.stringify({
                         longUrl: this.url,  
@@ -349,7 +381,11 @@ export default{
 
             try{
                 await fetch("http://localhost:8000/api/urls/filter?url=" + this.searchBar, {
-                    method: "GET"
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Accept": "application/json",
+                    }
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -368,12 +404,23 @@ export default{
         },
         async deleteUrl(url){
             try{
+
+                const token = decodeURIComponent(
+                document.cookie
+                    .split('; ')
+                    .find(row => row.startsWith('XSRF-TOKEN='))
+                    .split('=')[1]
+                )
+
                 const endpoint = "http://localhost:8000/api/urls/" + url.short_url;
                 
                 await fetch(endpoint, {
                     method: "DELETE",
+                    credentials: "include",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "X-XSRF-TOKEN": token
                     },
                 })
                 .then(response => response.json()) 
@@ -392,7 +439,11 @@ export default{
                 const endpoint = "http://localhost:8000/api/urls?sort=" + method; 
 
                 await fetch(endpoint, {
-                    method: "GET"
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Accept": "application/json"
+                    }
                 })
                 .then(response => response.json())
                 .then(data => this.urls = data);
@@ -402,16 +453,25 @@ export default{
                 this.sortOption = method;
                 this.loading = false;
             }
-
         },
         async updateStatus(url){
             try{
+                const token = decodeURIComponent(
+                    document.cookie
+                        .split('; ')
+                        .find(row => row.startsWith('XSRF-TOKEN='))
+                        .split('=')[1]
+                )
+
                 const endpoint = "http://localhost:8000/api/urls/" + url.short_url;
 
                 await fetch(endpoint, {
                     method: "PATCH",
+                    credentials: "include",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "X-XSRF-TOKEN": token
                     },
                     body: JSON.stringify({
                         shortUrl: url.short_url,
