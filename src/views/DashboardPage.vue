@@ -39,9 +39,9 @@
         
         <div class="col-12 col-md-3 d-flex justify-content-between">
             <input class="form-control" id="search" list="options" placeholder="Search links..." v-model="searchBar" @change="searchUrl()">
-            <!--<datalist id="options">
+            <datalist id="options">
                 <option v-for="url in urls" :key="url.id" :value="url.short_url">{{ "https://localhost/api/urls/" + url.short_url }}</option>
-            </datalist> -->           
+            </datalist>      
         </div>
     </div>
 
@@ -51,37 +51,24 @@
         </div>
     </div>
 
-    <!-- skeleton loader -->
-     <div class="row g-4" v-if="isSkeletonLoading">
-        <skeleton v-for="n in 9" :key="n"></skeleton>        
-     </div>
-
-    <!-- spinner loader -->
-    <div class="d-flex justify-content-center py-5" v-if="isSpinnerLoading">
-        <spinner></spinner>
-    </div>
-
     <!-- Cards UI -->
     <div class="row g-4" v-if="urls.length >= 1">        
         <div class="col-12 col-lg-6 col-xl-4" v-for="url in urls" :key="url.id">
-            <div class="p-4" style="border: 1px solid rgb(214, 214, 214); border-radius: 1rem; box-shadow: 0 1px 3px rgb(200, 200, 200);">
-                <!--
-                <div class="d-flex justify-content-start align-items-center pb-2">
-                    <span v-if="url.status === 'active'" class="badge text-bg-success">{{ url.status }}</span>
-                    <span v-else class="badge text-bg-danger">{{ url.status }}</span>
-                </div>
-                -->
+            <div class="p-4 rounded-4" style="border: 1px solid rgb(214, 214, 214); box-shadow: 0 1px 3px rgb(200, 200, 200);">
+                
                 <!-- long url and buttons section -->
-                <div class="d-flex justify-content-start align-items-center">
-                    <span v-if="url.status === 'active'" class="badge text-bg-success">{{ url.status }}</span>
-                    <span v-else class="badge text-bg-danger">{{ url.status }}</span>                    
+                <div v-if="url.status === 'active'" class="badge bg-success-subtle text-success">
+                   online
+                </div>
+                <div v-else class="badge bg-danger-subtle text-danger">
+                   offline
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center pb-2 pt-2 gap-3" >
 
                     <router-link :to="{ name: 'linkPage', params: { id: url.id } }" class="router-link-active nav-link" style="min-width: 0;">
                         <div class="d-flex align-items-center gap-2" style="overflow: hidden;">
-                            <!--<img src="../assets/logo.png" alt="" width="6% ">-->
+                            <img src="../assets/logo.png" alt="" width="6% ">
                             <p class="short-url m-0" style="text-decoration: none;">{{ "http://localhost/api/" + url.short_url }}</p>
                         </div>
                     </router-link>
@@ -103,16 +90,47 @@
                         
                         <button class="btn button-option d-flex align-items-center" title="Other options" type="button" data-bs-offset="-70, 0" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="dropdown">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-                                    </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                                </svg>
 
                                 <!-- dropdown -->
-                                <ul class="dropdown-menu">
-                                    <li><button class="dropdown-item">Share</button></li>
-                                    <li v-if="url.status === 'active'"><button class="dropdown-item" @click="updateStatus(url)">Deactivate</button></li>
-                                    <li v-else><button class="dropdown-item" @click="updateStatus(url)">Activate</button></li>
-                                    <li><button class="dropdown-item" @click="afterDeleteUrl(url)">Delete</button></li>
+                                <ul class="dropdown-menu ">             
+                                    <li @click="updateStatus(url)">
+                                        <div class="d-flex align-items-center dropdown-item gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
+                                                <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3"/>
+                                            </svg>                                        
+                                            <span style="font-size: 0.875rem; font-weight: 400;">Share</span>
+                                        </div>
+                                    </li>                   
+                                    <li v-if="url.status === 'active'" @click="updateStatus(url)">
+                                        <div class="d-flex align-items-center dropdown-item gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path d="M7.5 1v7h1V1z"/>
+                                                <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"/>
+                                            </svg>                                            
+                                            <span style="font-size: 0.875rem; font-weight: 400;">Deactivate</span>
+                                        </div>
+                                    </li>      
+                                    <li v-else @click="updateStatus(url)">
+                                        <div class="d-flex align-items-center dropdown-item gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path d="M7.5 1v7h1V1z"/>
+                                                <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"/>
+                                            </svg>                                            
+                                            <span style="font-size: 0.875rem; font-weight: 400;">Activate</span>
+                                        </div>
+                                    </li>                
+                                    <li @click="afterDeleteUrl(url)">
+                                        <div class="d-flex align-items-center dropdown-item gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-trash text-danger" viewBox="0 0 16 16" style="stroke-width: 0.25px; stroke: #D22B2B;">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                            </svg>                                            
+                                            <span style="font-size: 0.875rem; font-weight: 400; color: #de5d5d;">Delete</span>
+                                        </div>
+                                    </li>
                                 </ul>   
                             </div>  
                         </button>
@@ -137,17 +155,27 @@
             </div>
         </div>
     </div>
+
+    <div class="row g-4" v-if="urls.length<=0 && !isSkeletonLoading">
+        <span style="text-align: center;">You have no link</span>      
+    </div>
+
+
+    <div class="row g-4" v-if="urls.length <= 0 && isSkeletonLoading">
+        <skeleton v-for="n in 9" :key="n"></skeleton>        
+     </div>
+    <!-- Spinner loader
     <div class="row g-4" v-if="urls.length <= 0 && !isSpinnerLoading">
         <div class="col-12" style="text-align: center;">
             <p>Hmm looks empty</p>    
         </div>
-        
     </div>
+    -->
 </div>
 
 
 <!-- create modal -->
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header pb-0 border-0">
@@ -159,25 +187,25 @@
                 <form action="/" method="POST">
                     <div class="mb-3">
                         <label for="ModalUrl" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Url</label>
-                        <input type="text" class="form-control" id="ModalUrl" placeholder="https://example.com" style="font-size: 0.875rem;" v-model="url">
+                        <input type="text" class="form-control" id="ModalUrl" placeholder="Enter a link..." style="font-size: 0.875rem;" v-model="url">
                     </div>
                     <div class="mb-3">
                         <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Slug</label>
-                        <input type="text" class="form-control" id="ModalSlug" placeholder="instapost124" style="font-size: 0.875rem;" v-model="slug">
+                        <input type="text" class="form-control" id="ModalSlug" placeholder="Enter a slug..." style="font-size: 0.875rem;" v-model="slug">
                     </div>
                     <div class="mb-3">
                         <label for="ModalComment" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Comment</label>
-                        <textarea class="form-control" id="ModalComment" placeholder="Some comment ..." style="font-size: 0.875rem;" v-model="comment"></textarea>
+                        <textarea class="form-control" id="ModalComment" placeholder="Enter a comment..." style="font-size: 0.875rem;" v-model="comment"></textarea>
                     </div>
                     <div class="mb-0">
                         <label for="ModalExpiration" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Expiration (yy-mm-dd)</label> 
-                        <input class="form-control" id="dateInput" placeholder="Enter a date" style="font-size: 0.875rem; color: #0a0a0a;" v-model="expires_at">
+                        <input class="form-control" id="dateInput" placeholder="Enter an expiration date..." style="font-size: 0.875rem; color: #0a0a0a;" v-model="expires_at">
                     </div>
                 </form>
             </div>
             <div class="modal-footer border-0">
                 <button class="btn btn-light" data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="clearForm()">Cancel</button>
-                <button class="btn btn-dark"  data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="afterInsertUrl()">Save</button>
+                <button class="btn btn-dark" data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="afterInsertUrl()">Create link</button>
             </div>
         </div>
     </div>
@@ -208,37 +236,50 @@
                     </div>
                     <div class="mb-0">
                         <label for="ModalExpiration" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Expiration (yy-mm-dd)</label> 
-                        <input class="form-control" id="ModalExpiration" placeholder="Enter a date" style="font-size: 0.875rem; color: #0a0a0a;" v-model="expires_at">
+                        <input class="form-control" id="ModalExpiration" :placeholder="this.expires_at" style="font-size: 0.875rem; color: #0a0a0a;" v-model="expires_at">
                     </div>
                 </form>
             </div>
             <div class="modal-footer border-0">
                 <button class="btn btn-light " data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="clearForm()">Cancel</button>
-                <button class="btn btn-dark" data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="afterUpdateUrl()">Save</button>
+                <button class="btn btn-dark" data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="afterUpdateUrl()">Update</button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Pagination -->
+<nav class="mt-5 mb-2">
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>
+
 </template>
 
 <script>
 
 import skeleton from "../components/skeletonComponent.vue"
-import spinner from "../components/spinnerComponent.vue"
 
 export default{
     mounted(){
         this.refreshUrl();
     },
     components: {
-        skeleton,
-        spinner
+        skeleton
     },
     data(){
         return {
             // stores the state of the api (received or not received)
             isSkeletonLoading: true,
-            isSpinnerLoading: false,
 
             // stores the API response of refreshUrl() method
             urls: [],
@@ -283,12 +324,13 @@ export default{
                 this.urls = await response.json();
                 
                 console.log(this.urls);
-  
+                // console.log(this.$route.meta.requiresAuth)
                 // authentication 
                 if(response.ok){
                     return;
-                }else{
-                    this.$router.push("/login");
+                }else{                    
+                    localStorage.setItem("logged_in", false);
+                    //this.$router.push("/login");
                     return;
                 }
             }catch(e){
@@ -377,7 +419,7 @@ export default{
                 return;
             }
 
-            this.isSpinnerLoading = true;
+            this.isSkeletonLoading = true;
 
             try{
                 await fetch("http://localhost:8000/api/urls/filter?url=" + this.searchBar, {
@@ -399,7 +441,7 @@ export default{
             }catch(e){
                 console.log(e);
             }finally{
-                this.isSpinnerLoading = false;
+                this.isSkeletonLoading = false;
             }
         },
         async deleteUrl(url){
@@ -504,8 +546,8 @@ export default{
             this.selectUrl = url.short_url ?? null;
             // set url as null if empty
             this.slug = url.short_url?? "";
-            this.comment = url.comment ?? "Hmm no comment here";
-            this.expires_at = url.expires_at ?? null;
+            this.comment = url.comment ?? "No comment set...";
+            this.expires_at = url.expires_at ?? "Date not set...";
         },
         clearForm(){
             this.url = "";

@@ -55,8 +55,9 @@
 
                                 <ul class="dropdown-menu">
                                     <li><button class="dropdown-item">Share</button></li>
-                                    <li><button class="dropdown-item" @click="myVueMethod()">Some action</button></li>
-                                    <li><button class="dropdown-item">Some option</button></li>
+                                    <li v-if="this.urls.status === 'active'"><button class="dropdown-item" @click="updateStatus(url)">Deactivate</button></li>
+                                    <li v-else><button class="dropdown-item" @click="updateStatus(url)">Activate</button></li>
+                                    <li><button class="dropdown-item" @click="afterDeleteUrl(url)">Delete</button></li>
                                 </ul>   
                             </div>  
                         </button>
@@ -197,8 +198,8 @@
                         <input type="text" class="form-control" id="ModalUrl" :placeholder="this.urls.long_url" style="font-size: 0.875rem;" v-model="url">
                     </div>
                     <div class="mb-3">
-                        <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Alias</label>
-                        <input type="text" class="form-control" id="ModalAlias" placeholder="instapost124" style="font-size: 0.875rem;" readonly>
+                        <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Slug</label>
+                        <input type="text" class="form-control" id="ModalAlias" :placeholder="this.urls.short_url" style="font-size: 0.875rem;" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="ModalComment" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Comment</label>
@@ -212,7 +213,7 @@
             </div>
             <div class="modal-footer border-0">
                 <button class="btn btn-light " data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;">Close</button>
-                <button class="btn btn-dark" data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="afterUpdateUrl()">Save</button>
+                <button class="btn btn-dark" data-bs-dismiss="modal" style="border: 1px solid lightgray; font-size: 0.875rem;" @click="afterUpdateUrl()">Update</button>
             </div>
         </div>
     </div>
@@ -242,8 +243,9 @@ export default{
             // statistics
             stats: String,
             
-            // for the create link modal
+            // for the edit link modal
             url: "",
+            slug: "",
             comment: "",
             expires_at: "",
 
@@ -261,7 +263,11 @@ export default{
         async refreshUrl(){
             try{
                 await fetch("http://localhost:8000/api/urls/filter?url=" + this.id, {
-                    method: "GET"
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Accept": "application/json",
+                    }
                 })
                 .then(response => response.json())
                 .then(data => this.urls = data)
@@ -296,12 +302,22 @@ export default{
         async updateUrl(){
 
             try{
+                const token = decodeURIComponent(
+                    document.cookie
+                        .split('; ')
+                        .find(row => row.startsWith('XSRF-TOKEN='))
+                        .split('=')[1]
+                )
+
                 const endpoint = "http://localhost:8000/api/urls/" + this.id;
 
                 await fetch(endpoint, {
                     method: "PUT",
+                    credentials: "include",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "X-XSRF-TOKEN": token
                     },
                     body: JSON.stringify({
                         longUrl: this.url,
@@ -316,11 +332,46 @@ export default{
             }
 
         },
+        async updateStatus(){
+            try{
+                const token = decodeURIComponent(
+                    document.cookie
+                        .split('; ')
+                        .find(row => row.startsWith('XSRF-TOKEN='))
+                        .split('=')[1]
+                )
+
+                const endpoint = "http://localhost:8000/api/urls/" + this.urls.short_url;
+
+                await fetch(endpoint, {
+                    method: "PATCH",
+                    credentials: "include",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "X-XSRF-TOKEN": token
+                    },
+                    body: JSON.stringify({
+                        shortUrl: this.urls.short_url,
+                        status: this.urls.status
+                    })
+                })
+                .then(response => response.json())
+                .then(data => console.log("Response:", data))
+
+                // refresh to update the status field
+                this.refreshUrl();
+            }catch(e){
+                console.log(e);
+            }
+            
+        },
         // Set the field inside edit url according to the API response data 
         editUrl(url){
             this.url = url.long_url;
-            this.comment = url.comment;
-            this.expires_at = url.expires_at;
+            this.slug = url.short_url;
+            this.comment = url.comment ?? "No comment set...";
+            this.expires_at = url.expires_at ?? "Date not set...";
         },
         myVueMethod(){
             console.log("Hello");

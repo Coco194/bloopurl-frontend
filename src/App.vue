@@ -1,19 +1,21 @@
 <template>
-  <pageHeader/>
-  <router-view />
-  <pageFooter/>
+    <HeaderComponent v-if=$route.meta.showHeaderFooter></HeaderComponent>
+    <router-view/>
+    <FooterComponent v-if=$route.meta.showHeaderFooter></FooterComponent>
 </template>
 
 <script>
+import HeaderComponent from './components/headerComponent.vue';
+import FooterComponent from './components/footerComponent.vue';
 
-import pageHeader from '../src/components/headerComponent.vue'
-import pageFooter from '../src/components/footerComponent.vue'
+
 
 export default {
-  name: 'App',
-  components: {
-    pageHeader,
-    pageFooter
-  }
+    name: 'App',
+    components: {
+        HeaderComponent,
+        FooterComponent
+
+    }
 }
 </script>

@@ -1,13 +1,14 @@
 <template>
     
-    
 <div class="pageContainer text-center">
     <p class="mb-0" style="color: #068006;">Start for free</p>
     <h1 class="display-4 fw-bold mb-3">BloopUrl</h1>
     <div class="col-lg-6 mx-auto">
         <p class="lead mb-4">Create clean, shareable links in seconds. Track clicks, manage custom slugs, and organize all your links from one dashboard.</p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-            <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3">Get started now</button>
+            <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3">
+                Get started now
+            </button>
             <!--<button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button>-->
         </div>
     </div>
@@ -89,8 +90,8 @@
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-center">
                             <div class="card-body">
-                                <h5 class="card-title">Link hiding</h5>
-                                <p class="card-text">Hide the original url so the visitors only see the short link</p>
+                                <h5 class="card-title">Custom slugs</h5>
+                                <p class="card-text">Personalize short URLs by using custom slugs</p>
                             </div>
                         </div>
                     </div>
@@ -104,10 +105,26 @@
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-center">
                             <div class="card-body">
-                                <h5 class="card-title">Link expiration</h5>
+                                <h5 class="card-title">Visit stats</h5>
+                                <p class="card-text">Track all visits, including stats like location, browser or referrer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-4 d-flex align-items-center justify-content-center">
+                            <img src="../assets/logo.png" class="img-fluid rounded-start" style="max-width: 80px;">
+                        </div>
+                        <div class="col-md-8 d-flex align-items-center justify-content-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Expiration date</h5>
                                 <p class="card-text">Set expiration dates for your short links</p>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -119,8 +136,8 @@
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-center">
                             <div class="card-body">
-                                <h5 class="card-title">Short url API</h5>
-                                <p class="card-text">Compress your URLs to their minimal length</p>
+                                <h5 class="card-title">Dynamic redirects</h5>
+                                <p class="card-text">Dynamically redirect visitors based on location, device, etc</p>
                             </div>
                         </div>
                     </div>
@@ -134,23 +151,8 @@
                         </div>
                         <div class="col-md-8 d-flex align-items-center justify-content-center">
                             <div class="card-body">
-                                <h5 class="card-title">url tracking</h5>
-                                <p class="card-text">Compress your URLs to their minimal length</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="row g-0">
-                        <div class="col-md-4 d-flex align-items-center justify-content-center">
-                            <img src="../assets/logo.png" class="img-fluid rounded-start" style="max-width: 80px;">
-                        </div>
-                        <div class="col-md-8 d-flex align-items-center justify-content-center">
-                            <div class="card-body">
-                                <h5 class="card-title">Link management</h5>
-                                <p class="card-text">Compress your URLs to their minimal length</p>
+                                <h5 class="card-title">Tags</h5>
+                                <p class="card-text">Tag your short URLs and classify them for later analytics</p>
                             </div>
                         </div>
                     </div>
@@ -451,12 +453,15 @@
         </div>
     </div>
 
-    
-
 </template>
 
 <script>
 
+export default{
+    components: {
+
+    }
+}
 </script>
 
 <style scoped>

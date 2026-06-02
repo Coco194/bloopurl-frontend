@@ -1,48 +1,112 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import homePage from '../views/HomePage.vue'
-import aboutPage from '../views/AboutPage.vue'
-import notFound from '../views/NotFound.vue'
-import dashboardPage from '../views/DashboardPage.vue'
+import HomePage from '../views/HomePage.vue'
+import NotFound from '../views/NotFound.vue'
+import DashboardPage from '../views/DashboardPage.vue'
 import LinkPage from '../views/LinkPage.vue'
-import registerPage from '../views/RegisterPage.vue'
-import loginPage from '../views/LoginPage.vue'
+import RegisterPage from '../views/RegisterPage.vue'
+import LoginPage from '../views/LoginPage.vue'
 
 const routes = [
-  { 
-    path: '/', 
-    component: homePage
-  },
-  {
-    path: '/about',
-    component: aboutPage
-  },
-  {
-    path: '/404',
-    component: notFound
-  },
-  {
-    path: '/dashboard',
-    component: dashboardPage,
-  },
-  {
-    path: '/register',
-    component: registerPage
-  },
-  {
-    path: "/login",
-    component: loginPage
-  },
-  {
-    name: "linkPage",
-    // passing route params
-    path: '/link/:id',
-    component: LinkPage
-  }
+    { 
+        path: '/', 
+        component: HomePage,
+        meta: {
+            requiresAuth: false,
+            showHeaderFooter: true
+        }
+    },
+    {
+        path: '/404',
+        component: NotFound,
+        meta: {
+            showHeaderFooter: true
+        }
+    },
+    {
+        path: '/dashboard',
+        component: DashboardPage,
+        meta: {
+            requiresAuth: true,
+            showHeaderFooter: true
+        }
+    },
+    {
+        path: '/register',
+        component: RegisterPage,
+        meta: {
+            requiresAuth: false,
+            showHeaderFooter: false
+        }
+    },
+    {
+        path: "/login",
+        component: LoginPage,
+        meta: {
+            requiresAuth: false,
+            showHeaderFooter: false
+        }
+    },
+    {
+        name: "linkPage",
+        // passing route params
+        path: '/link/:id',
+        component: LinkPage,
+        meta: {
+            requiresAuth: true,
+            showHeaderFooter: true
+        }
+    }
 ]
 
 export const router = createRouter({
-  // used createWebHashHistory() instead of createWebHistory()
-  history: createWebHistory(),
-  routes,
+    // used createWebHashHistory() instead of createWebHistory()
+    history: createWebHistory(),
+    routes,
+})
+
+// navigation guard
+router.beforeEach(async (to) => {
+    let token = "";
+
+    console.log("requiresAuth for", to.fullPath ,to.meta.requiresAuth);
+
+    // check if the route has meta "requiresAuth" and is set to false
+    if(!to.meta.requiresAuth){
+        return true;
+    }
+    // check if no XSRF-TOKEN is set (first time user)
+    else if(document.cookie.indexOf('XSRF-TOKEN') === 0){
+        return true;
+    }
+    else{
+        // if the XSRF-TOKEN cookie does not exist.
+        if((document.cookie.indexOf('XSRF-TOKEN=')) == -1){
+            return "/login"
+        }
+
+        token = decodeURIComponent(
+            document.cookie
+                .split('; ')
+                .find(row => row.startsWith('XSRF-TOKEN='))
+                .split('=')[1]
+        );
+
+        const user = await fetch("http://localhost:8000/api/user", {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "X-XSRF-TOKEN": token
+            }
+        });
+        // check if the api response is in the 200 range 
+        if(user.ok){
+            console.log("Ok");
+            return true;
+        }
+
+        return "/login"        
+    }
 })
