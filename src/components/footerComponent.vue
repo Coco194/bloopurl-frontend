@@ -31,13 +31,7 @@ export default{
 }
 </script>
 
-<style>
-.footerImg{
-    vertical-align: middle !important;
-    width: 100%;
-    height: auto;
-    width: calc(17px + 6 * ((100vw - 320px) / 680)); 
-}
+<style scoped>
 
 .pageContainer{
     padding: 2rem 2rem;

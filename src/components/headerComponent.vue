@@ -1,15 +1,35 @@
 <template>
-<nav class="container navContainer navbar sticky-top navbar-expand-lg gap-2"> 
-    <div class="container-fluid" style="margin: 0!important; padding: 0!important;">
+<!--
+<header class="container pageContainer navbar-collapse d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"> 
+    <div class="col-md-3 mb-2 mb-md-0"> 
+        <router-link to="/" class="navbar-brand" style="margin: 0!important; font-size: 1rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#228B22" class="bi bi-leaf-fill d-inline-block align-text-top" viewBox="0 0 16 16">
+                <path d="M1.4 1.7c.217.289.65.84 1.725 1.274 1.093.44 2.885.774 5.834.528 2.02-.168 3.431.51 4.326 1.556C14.161 6.082 14.5 7.41 14.5 8.5q0 .344-.027.734C13.387 8.252 11.877 7.76 10.39 7.5c-2.016-.288-4.188-.445-5.59-2.045-.142-.162-.402-.102-.379.112.108.985 1.104 1.82 1.844 2.308 2.37 1.566 5.772-.118 7.6 3.071.505.8 1.374 2.7 1.75 4.292.07.298-.066.611-.354.715a.7.7 0 0 1-.161.042 1 1 0 0 1-1.08-.794c-.13-.97-.396-1.913-.868-2.77C12.173 13.386 10.565 14 8 14c-1.854 0-3.32-.544-4.45-1.435-1.124-.887-1.889-2.095-2.39-3.383-1-2.562-1-5.536-.65-7.28L.73.806z"/>
+            </svg>
+            <span>BloopUrl</span>
+        </router-link>          
+    </div> 
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"> 
+        <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li> 
+        <li><a href="#" class="nav-link px-2">Features</a></li> 
+        <li><a href="#" class="nav-link px-2">Pricing</a></li> 
+        <li><a href="#" class="nav-link px-2">FAQs</a></li> 
+        <li><a href="#" class="nav-link px-2">About</a></li> 
+    </ul> 
+    <div class="col-md-3 text-end"> 
+        <button type="button" class="btn btn-outline-primary me-2">Login</button> 
+        <button type="button" class="btn btn-primary">Sign-up</button> 
+    </div>
+</header>
+-->
 
-        <!-- Sidebar menu -->
+
+
+<nav class="navContainer navbar sticky-top navbar-expand-lg gap-2"> 
+    <div class="container-fluid m-0 p-0">
+
+        <!-- Navbar title -->
         <div class="d-flex align-items-center gap-1">
-            <button v-if="logged_in == 'true'"  class="btn btn-light navbar-brand" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-                </svg>
-            </button>
-
             <router-link to="/" class="navbar-brand" style="margin: 0!important; font-size: 1rem;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#228B22" class="bi bi-leaf-fill d-inline-block align-text-top" viewBox="0 0 16 16">
                     <path d="M1.4 1.7c.217.289.65.84 1.725 1.274 1.093.44 2.885.774 5.834.528 2.02-.168 3.431.51 4.326 1.556C14.161 6.082 14.5 7.41 14.5 8.5q0 .344-.027.734C13.387 8.252 11.877 7.76 10.39 7.5c-2.016-.288-4.188-.445-5.59-2.045-.142-.162-.402-.102-.379.112.108.985 1.104 1.82 1.844 2.308 2.37 1.566 5.772-.118 7.6 3.071.505.8 1.374 2.7 1.75 4.292.07.298-.066.611-.354.715a.7.7 0 0 1-.161.042 1 1 0 0 1-1.08-.794c-.13-.97-.396-1.913-.868-2.77C12.173 13.386 10.565 14 8 14c-1.854 0-3.32-.544-4.45-1.435-1.124-.887-1.889-2.095-2.39-3.383-1-2.562-1-5.536-.65-7.28L.73.806z"/>
@@ -27,16 +47,18 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto gap-3 align-items-center"> 
 
-                <li  v-if="logged_in == 'true'">
-                    <button class="btn btn-light d-flex align-items-center gap-2" style="border: 1px solid lightgray;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stars" viewBox="0 0 16 16">
-                            <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"/>
-                        </svg>
-                        Upgrade        
-                    </button>
+                <li v-if="logged_in == 'true'">
+                    <router-link to="/dashboard" style="text-decoration: none;">
+                        <button class="btn btn-light d-flex align-items-center gap-2" style="border: 1px solid lightgray;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stars" viewBox="0 0 16 16">
+                                <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"/>
+                            </svg>
+                            Dashboard      
+                        </button>
+                    </router-link>
                 </li>
 
-                <li v-if="logged_in == 'false'">
+                <li v-if="logged_in == 'false' || logged_in == null">
                     <router-link to="/register">
                         <button type="button" class="btn gap-2">
                             Register
@@ -44,27 +66,12 @@
                     </router-link>
                 </li>
 
-                <li v-if="logged_in == 'false'">
+                <li v-if="logged_in == 'false' || logged_in == null">
                     <router-link to="/login">
                         <button type="button" class="btn btn-dark gap-2">
                             Login
                         </button>                     
                     </router-link>
-                </li>
-
-
-                <li  v-if="logged_in == 'true'">
-                    |
-                </li>
-
-                <li v-if="logged_in == 'true'">
-                    <a href="#" class="d-flex align-items-center link-dark text-decoration-none">            
-                        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                        <div class="d-flex flex-column">
-                            <span style="font-size: 0.950rem; font-weight: 500;">{{ this.username }}</span>
-                            <span style="font-size: 0.785rem; color: #6a6a6a;">{{ this.email }}</span>
-                        </div>
-                    </a>
                 </li>
 
                 <!-- old profile context menu
@@ -140,7 +147,7 @@
 </nav>
 
 
-<!-- offcanvas -->
+<!-- offcanvas 
 <div class="offcanvas offcanvas-start p-3" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="width: 300px;">
     <div class="offcanvas-header gap-1">
         <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#228B22" class="bi bi-leaf-fill d-inline-block align-text-top" viewBox="0 0 16 16">
@@ -154,14 +161,14 @@
 
     <ul class="list-group nav nav-pills flex-column mb-auto gap-1">
         <li>
-            <span class="nav-link align-items-center" style="font-size: 0.8rem; color: #4a4a4a;">General</span>
+            <span class="nav-link align-items-center" style="font-size: 0.8rem; color: rgb(97, 86, 86);">General</span>
         </li>
         <li data-bs-dismiss="offcanvas">
             <a href="#" class="d-flex gap-2 align-items-center list-group-item list-group-item-action rounded-2" style="border: 0px;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16" style="stroke-width: 0.5px; stroke: black;">
                     <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
                 </svg>
-                <span style="font-size: 0.875rem; font-weight: 500; color: #2a2a2a;">Home</span>
+                <span style="font-size: 0.875rem; font-weight: 500; color: rgb(97, 86, 86);">Home</span>
             </a>
         </li>
         <li data-bs-dismiss="offcanvas">
@@ -179,7 +186,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16" style="stroke-width: 0.5px; stroke: black;">
                     <path fill-rule="evenodd" d="M0 0h1v15h15v1H0zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07"/>
                 </svg>
-                <span style="font-size: 0.875rem; font-weight: 500; color: #2a2a2a;">Analyze</span>
+                <span style="font-size: 0.875rem; font-weight: 500; color: rgb(97, 86, 86);">Analyze</span>
             </a>
         </li>
         <li data-bs-dismiss="offcanvas">
@@ -187,7 +194,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="stroke-width: 0.5px; stroke: black;">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                 </svg>
-                <span style="font-size: 0.875rem; font-weight: 500; color: #2a2a2a;">Check</span>
+                <span style="font-size: 0.875rem; font-weight: 500; color: rgb(97, 86, 86);">Check</span>
             </a>
         </li>
         <li data-bs-dismiss="offcanvas">
@@ -196,7 +203,7 @@
                     <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
                     <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
                 </svg>
-                <span style="font-size: 0.875rem; font-weight: 500; color: #2a2a2a;">Settings</span>
+                <span style="font-size: 0.875rem; font-weight: 500; color: rgb(97, 86, 86);">Settings</span>
             </a>
         </li>
     </ul>
@@ -211,27 +218,15 @@
                 <span style="font-size: 0.785rem; color: #6a6a6a;">coco@gmail.com</span>
             </div>
         </a>
-        <!--
-        <div class="d-flex align-items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="#4a4a4a" class="bi bi-person-circle" viewBox="0 0 16 16">
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-            </svg>
-            <div class="d-flex flex-column">
-                <span style="font-weight: 500;">{{ this.username}}</span>
-                <span style="font-size: 0.785rem; color: #6a6a6a;">{{ this.email }}</span>
-            </div>
-        </div>
-        -->
 
-        <!-- Default dropup button -->
+        Default dropup button 
         <div class="btn-group dropup" >
             <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 
             </button>
             <ul class="dropdown-menu" style="transition-duration: 0.25s;">
 
-                <!-- Dropdown menu links -->
+                 Dropdown menu links 
                 <li><a class="dropdown-item" href="#">New project...</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -245,6 +240,7 @@
         </div>     
     </div>
 </div>
+-->
 
 <!-- Log out confirmation modal -->
 <div class="modal fade " id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -313,3 +309,27 @@ export default{
 }
 
 </script>
+
+<style scoped>
+.navContainer{
+    padding: 1rem 2rem;
+    /*position: sticky; 
+    top: 0; 
+    z-index: 999; */
+    background-color: rgb(255, 255, 255);
+}
+
+.pageContainer{
+    padding: 0rem 2rem;
+}
+
+/* applied when screen is larger than 1280px */
+@media (min-width: 1280px) {
+    .navContainer {
+        padding: 2rem 5rem;
+    }
+    .pageContainer {
+        padding: 2rem 2rem;
+    }
+}
+</style>

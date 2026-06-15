@@ -133,7 +133,7 @@ export default{
 }
 </script>
 
-<style>
+<style scoped>
 .navContainer{
     padding: 1rem 2rem;
     background-color: rgb(255, 255, 255);

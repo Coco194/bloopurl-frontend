@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import HomePage from '../views/HomePage.vue'
-import NotFound from '../views/NotFound.vue'
-import DashboardPage from '../views/DashboardPage.vue'
-import LinkPage from '../views/LinkPage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import LoginPage from '../views/LoginPage.vue'
+import NotFound from '../views/NotFound.vue'
+
+import DashboardPage from '../views/DashboardPage.vue'
+import DashboardLink from '../views/DashboardLink.vue'
+import DashboardExport from '../views/DashboardExport.vue'
+import DashboardSettings from '../views/DashboardSettings.vue'
 
 const routes = [
     { 
@@ -13,21 +16,6 @@ const routes = [
         component: HomePage,
         meta: {
             requiresAuth: false,
-            showHeaderFooter: true
-        }
-    },
-    {
-        path: '/404',
-        component: NotFound,
-        meta: {
-            showHeaderFooter: true
-        }
-    },
-    {
-        path: '/dashboard',
-        component: DashboardPage,
-        meta: {
-            requiresAuth: true,
             showHeaderFooter: true
         }
     },
@@ -46,16 +34,53 @@ const routes = [
             requiresAuth: false,
             showHeaderFooter: false
         }
-    },
+    },    
     {
-        name: "linkPage",
-        // passing route params
-        path: '/link/:id',
-        component: LinkPage,
+        path: '/404',
+        component: NotFound,
         meta: {
-            requiresAuth: true,
             showHeaderFooter: true
         }
+    },
+
+    // Dashboard routes
+    {
+        name: "Dashboard",
+        path: '/dashboard',
+        component: DashboardPage,
+        meta: {
+            requiresAuth: true,
+            showHeaderFooter: false
+        }
+    },
+    {
+        name: "Link",
+        // passing route params
+        path: '/dashboard/:id',
+        component: DashboardLink,
+        meta: {
+            requiresAuth: true,
+            showHeaderFooter: false
+        }
+    },
+
+    {
+        name: "Import/export",
+        path: "/dashboard/export",
+        component: DashboardExport,
+        meta: {
+            requiresAuth: true,
+            showHeaderFooter: false
+        }
+    },
+    {
+        name: "Settings",
+        path: "/dashboard/settings",
+        component: DashboardSettings,
+        meta: {
+            requiresAuth: true,
+            showHeaderFooter: false
+        }        
     }
 ]
 
