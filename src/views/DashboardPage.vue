@@ -166,47 +166,40 @@
                                 </svg>                 
                             </button>
                             
-                            <button class="btn button-option d-flex align-items-center" title="Other options" type="button" data-bs-offset="-70, 0" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn button-option d-flex align-items-center" title="Other options" type="button" data-bs-offset="0, 0" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="dropdown">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-three-dots" viewBox="0 0 16 16">
                                         <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                                     </svg>
 
                                     <!-- dropdown -->
-                                    <ul class="dropdown-menu ">             
-                                        <li @click="updateStatus(url)">
-                                            <div class="d-flex align-items-center dropdown-item gap-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
-                                                    <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3"/>
-                                                </svg>                                        
-                                                <span style="font-size: 0.875rem; font-weight: 400;">Share</span>
-                                            </div>
-                                        </li>                   
+                                    <ul class="dropdown-menu p-2 rounded-3 mx-0 shadow">                       
                                         <li v-if="url.status === 'active'" @click="updateStatus(url)">
-                                            <div class="d-flex align-items-center dropdown-item gap-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                    <path d="M7.5 1v7h1V1z"/>
-                                                    <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"/>
-                                                </svg>                                            
-                                                <span style="font-size: 0.875rem; font-weight: 400;">Deactivate</span>
+                                            <div class="dropdown-item rounded-2 gap-2 my-1 py-1">                                         
+                                                <span style="font-size: 1rem; font-weight: 400;">Deactivate</span>
                                             </div>
                                         </li>      
                                         <li v-else @click="updateStatus(url)">
-                                            <div class="d-flex align-items-center dropdown-item gap-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                    <path d="M7.5 1v7h1V1z"/>
-                                                    <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"/>
-                                                </svg>                                            
-                                                <span style="font-size: 0.875rem; font-weight: 400;">Activate</span>
+                                            <div class="dropdown-item rounded-2 gap-2 my-1 py-1">
+                                                <span style="font-size: 1rem; font-weight: 400;">Activate</span>
                                             </div>
-                                        </li>                
+                                        </li>      
+                                        <li>
+                                            <div class="dropdown-item rounded-2 gap-2 my-1 py-1" data-bs-toggle="modal" data-bs-target="#editModal" @click="editUrl(url)">                                 
+                                                <span style="font-size: 1rem; font-weight: 400;">Edit</span>
+                                            </div>
+                                        </li>                                                  
+                                        <li>
+                                            <div class="dropdown-item rounded-2 gap-2 my-1 py-1">                                 
+                                                <span style="font-size: 1rem; font-weight: 400;">Share</span>
+                                            </div>
+                                        </li>                                                 
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>      
                                         <li @click="afterDeleteUrl(url)">
-                                            <div class="d-flex align-items-center dropdown-item gap-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-trash text-danger" viewBox="0 0 16 16" style="stroke-width: 0.25px; stroke: #D22B2B;">
-                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                                </svg>                                            
-                                                <span style="font-size: 0.875rem; font-weight: 400; color: #de5d5d;">Delete</span>
+                                            <div class="dropdown-item rounded-2 gap-2 my-1 py-1">
+                                                <span style="font-size: 1rem; font-weight: 400; color: #de5d5d;">Delete</span>
                                             </div>
                                         </li>
                                     </ul>   
