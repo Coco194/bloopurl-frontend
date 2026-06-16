@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="row g-0">
                     <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        <img src="../assets/logo.png" class="img-fluid rounded-start" style="max-width: 80px;">
+                        <img src="../assets/logo.svg" class="img-fluid rounded-start" style="max-width: 80px;">
                     </div>
                     <div class="col-md-8 d-flex align-items-center justify-content-center">
                         <div class="card-body">
@@ -48,7 +48,7 @@
             <div class="card">
                 <div class="row g-0">
                     <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        <img src="../assets/logo.png" class="img-fluid rounded-start" style="max-width: 80px;">
+                        <img src="../assets/logo.svg" class="img-fluid rounded-start" style="max-width: 80px;">
                     </div>
                     <div class="col-md-8 d-flex align-items-center justify-content-center">
                         <div class="card-body">
@@ -63,7 +63,7 @@
             <div class="card">
                 <div class="row g-0">
                     <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        <img src="../assets/logo.png" class="img-fluid rounded-start" style="max-width: 80px;">
+                        <img src="../assets/logo.svg" class="img-fluid rounded-start" style="max-width: 80px;">
                     </div>
                     <div class="col-md-8 d-flex align-items-center justify-content-center">
                         <div class="card-body">
@@ -78,7 +78,7 @@
             <div class="card">
                 <div class="row g-0">
                     <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        <img src="../assets/logo.png" class="img-fluid rounded-start" style="max-width: 80px;">
+                        <img src="../assets/logo.svg" class="img-fluid rounded-start" style="max-width: 80px;">
                     </div>
                     <div class="col-md-8 d-flex align-items-center justify-content-center">
                         <div class="card-body">
@@ -94,7 +94,7 @@
             <div class="card">
                 <div class="row g-0">
                     <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        <img src="../assets/logo.png" class="img-fluid rounded-start" style="max-width: 80px;">
+                        <img src="../assets/logo.svg" class="img-fluid rounded-start" style="max-width: 80px;">
                     </div>
                     <div class="col-md-8 d-flex align-items-center justify-content-center">
                         <div class="card-body">
@@ -109,7 +109,7 @@
             <div class="card">
                 <div class="row g-0">
                     <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        <img src="../assets/logo.png" class="img-fluid rounded-start" style="max-width: 80px;">
+                        <img src="../assets/logo.svg" class="img-fluid rounded-start" style="max-width: 80px;">
                     </div>
                     <div class="col-md-8 d-flex align-items-center justify-content-center">
                         <div class="card-body">

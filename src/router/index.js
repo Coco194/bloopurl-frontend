@@ -9,6 +9,7 @@ import DashboardPage from '../views/DashboardPage.vue'
 import DashboardLink from '../views/DashboardLink.vue'
 import DashboardExport from '../views/DashboardExport.vue'
 import DashboardSettings from '../views/DashboardSettings.vue'
+import ProtectedPage from '../views/ProtectedPage.vue'
 
 const routes = [
     { 
@@ -38,6 +39,13 @@ const routes = [
     {
         path: '/404',
         component: NotFound,
+        meta: {
+            showHeaderFooter: true
+        }
+    },
+    {
+        path: '/protected',
+        component: ProtectedPage,
         meta: {
             showHeaderFooter: true
         }
@@ -82,15 +90,18 @@ const routes = [
             showHeaderFooter: false
         }        
     }
-]
+];
 
-export const router = createRouter({
-    // used createWebHashHistory() instead of createWebHistory()
-    history: createWebHistory(),
-    routes,
+const router = createRouter({
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes
 })
 
+
+export default router
+
 // navigation guard
+/*
 router.beforeEach(async (to) => {
     let token = "";
 
@@ -135,3 +146,4 @@ router.beforeEach(async (to) => {
         return "/login"        
     }
 })
+*/

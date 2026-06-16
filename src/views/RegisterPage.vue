@@ -58,7 +58,7 @@ export default{
     methods: {
         async register() {
 
-            await fetch("http://localhost:8000/sanctum/csrf-cookie", {
+            await fetch("http://192.168.8.161:8000/sanctum/csrf-cookie", {
                 credentials: "include"
             });
 
@@ -70,7 +70,7 @@ export default{
                     .split('=')[1]
             );
 
-            const response = await fetch("http://localhost:8000/api/register", {
+            const response = await fetch("http://192.168.8.161:8000/api/register", {
                 method: "POST",
                 credentials: "include",
                 headers: {

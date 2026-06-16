@@ -146,7 +146,7 @@
 
                         <router-link :to="{ name: 'Link', params: { id: url.id } }" class="router-link-active nav-link" style="min-width: 0;">
                             <div class="d-flex align-items-center gap-2" style="overflow: hidden;">
-                                <img src="../assets/logo.png" alt="" width="16rem">                                
+                                <img src="../assets/logo.svg" alt="" width="16rem">                                
                                 <p class="short-url m-0" style="text-decoration: none;">{{ "http://localhost/api/" + url.short_url }}</p>
                             </div>
                         </router-link>
@@ -262,7 +262,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p style="font-size: 0.875rem; color: #6a6a6a;">This preview link is valid only for 24hours.</p>
+                <p style="font-size: 0.875rem; color: #8a8a8a;">This preview link is valid only for 24hours.</p>
                 <form action="/" method="POST">
                     <div class="mb-3">
                         <label for="ModalUrl" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Url</label>
@@ -299,23 +299,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p style="font-size: 0.875rem; color: #6a6a6a;">This preview link is valid only for 24hours.</p>
+                <p style="font-size: 0.875rem; color: #8a8a8a;">This preview link is valid only for 24hours.</p>
                 <form action="/" method="POST">
                     <div class="mb-3">
                         <label for="ModalUrl" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Url</label>
-                        <input type="text" class="form-control" id="ModalUrl" placeholder="this.url" style="font-size: 0.875rem;" v-model="url">
+                        <input type="text" class="form-control" id="ModalUrl" placeholder="this.url" style="font-size: 0.875rem; color: #6a6a6a;" v-model="url">
                     </div>
                     <div class="mb-3">
                         <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Slug</label>
-                        <input type="text" class="form-control" id="ModalSlug" placeholder="this.slug" style="font-size: 0.875rem;" v-model="slug" readonly>
+                        <input type="text" class="form-control" id="ModalSlug" placeholder="this.slug" style="font-size: 0.875rem; color: #6a6a6a;" v-model="slug" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="ModalComment" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Comment</label>
-                        <textarea class="form-control" id="ModalComment" placeholder="Comment not set..." style="font-size: 0.875rem;" v-model="comment"></textarea>
+                        <textarea class="form-control" id="ModalComment" placeholder="Comment not set..." style="font-size: 0.875rem; color: #6a6a6a;" v-model="comment"></textarea>
                     </div>
                     <div class="mb-0">
                         <label for="ModalExpiration" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Expiration (yy-mm-dd)</label> 
-                        <input class="form-control" id="ModalExpiration" placeholder="Date not set..." style="font-size: 0.875rem; color: #0a0a0a;" v-model="expires_at">
+                        <input class="form-control" id="ModalExpiration" placeholder="Date not set..." style="font-size: 0.875rem; color: #6a6a6a;" v-model="expires_at">
                     </div>
                 </form>
             </div>
@@ -347,6 +347,9 @@ export default{
     },
     data(){
         return {
+            // store the base API url 
+            baseUrl: import.meta.env.VITE_API_URL,
+
             // stores the state of the api (received or not received)
             isSkeletonLoading: true,
 
@@ -382,7 +385,9 @@ export default{
         },
         async refreshUrl(){
             try{
-                const response = await fetch("http://localhost:8000/api/urls", {
+                const endpoint = this.baseUrl + "/api/urls"                 
+
+                const response = await fetch(endpoint, {
                     method: "GET",
                     credentials: "include",
                     headers: {
@@ -411,6 +416,8 @@ export default{
         },
         async insertUrl(){
             try{
+                const endpoint = this.baseUrl + "/api/urls";
+
                 const token = decodeURIComponent(
                 document.cookie
                     .split('; ')
@@ -418,7 +425,7 @@ export default{
                     .split('=')[1]
                 )
             
-                await fetch("http://localhost:8000/api/urls", {
+                await fetch(endpoint, {
                     method: "POST",
                     credentials: "include",
                     headers: {
@@ -456,7 +463,7 @@ export default{
                     .split('=')[1]
                 )
 
-                const endpoint = "http://localhost:8000/api/urls/" + this.selectUrl;
+                const endpoint = this.baseUrl + "/api/urls/" + this.selectUrl;
 
                 await fetch(endpoint, {
                     method: "PUT",
@@ -490,8 +497,10 @@ export default{
 
             this.isSkeletonLoading = true;
 
+            const endpoint = this.baseUrl + "/api/urls/filter?url=" + this.searchBar;
+
             try{
-                await fetch("http://localhost:8000/api/urls/filter?url=" + this.searchBar, {
+                await fetch(endpoint, {
                     method: "GET",
                     credentials: "include",
                     headers: {
@@ -523,7 +532,7 @@ export default{
                     .split('=')[1]
                 )
 
-                const endpoint = "http://localhost:8000/api/urls/" + url.short_url;
+                const endpoint = this.baseUrl + "/api/urls/" + url.short_url;
                 
                 await fetch(endpoint, {
                     method: "DELETE",
@@ -547,7 +556,7 @@ export default{
             this.loading = true;
 
             try{
-                const endpoint = "http://localhost:8000/api/urls?sort=" + method; 
+                const endpoint = this.baseUrl + "/api/urls?sort=" + method; 
 
                 await fetch(endpoint, {
                     method: "GET",
@@ -574,7 +583,7 @@ export default{
                         .split('=')[1]
                 )
 
-                const endpoint = "http://localhost:8000/api/urls/" + url.short_url;
+                const endpoint = this.baseUrl + "/api/urls/" + url.short_url;
 
                 await fetch(endpoint, {
                     method: "PATCH",
@@ -601,7 +610,7 @@ export default{
         },
         copyUrl(url){
             // copies text to the clipboard 
-            navigator.clipboard.writeText("http://localhost:8000/api/" + url.short_url);
+            navigator.clipboard.writeText("http://192.168.8.161:8000/api/" + url.short_url);
         },
         createUrl(){
             // clear out the placeholders if we opened 'edit' modal beforehand

@@ -45,13 +45,13 @@
             <div class="col-12" >
                 <div class="rounded-3 p-4 w-100 shadow-sm" style="border: 1px solid lightgray;">
                     <span v-if="this.urls.status === 'active'" class="badge bg-success-subtle text-success">{{ this.urls.status }}</span>
-                    <span v-else class="badge text-bg-danger">{{ this.urls.status }}</span>
+                    <span v-else class="badge bg-danger-subtle text-danger">{{ this.urls.status }}</span>
 
                     <div class="d-flex justify-content-between align-items-center pb-3">
                         <a href="" class="router-link-active nav-link" style="overflow: auto;">
                             <div class="d-flex align-items-center gap-2" >
-                                <img src="../assets/logo.png" alt="" width="20rem">
-                                <p class="short-url m-0">http://localhost:8000/api/{{ this.urls.short_url }}</p>
+                                <img src="../assets/logo.svg" alt="" width="20rem">
+                                <p class="short-url m-0">http://192.168.8.161:8000/api/{{ this.urls.short_url }}</p>
                             </div>
                         </a>
 
@@ -250,15 +250,15 @@
                 <form action="/" method="POST">
                     <div class="mb-3">
                         <label for="ModalUrl" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Url</label>
-                        <input type="text" class="form-control" id="ModalUrl" :placeholder="this.urls.long_url" style="font-size: 0.875rem;" v-model="url">
+                        <input type="text" class="form-control" id="ModalUrl" placeholder="this.urls.long_url" style="font-size: 0.875rem;" v-model="url">
                     </div>
                     <div class="mb-3">
                         <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Slug</label>
-                        <input type="text" class="form-control" id="ModalAlias" :placeholder="this.urls.short_url" style="font-size: 0.875rem;" readonly>
+                        <input type="text" class="form-control" id="ModalAlias" placeholder="this.urls.short_url" style="font-size: 0.875rem;" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="ModalComment" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Comment</label>
-                        <textarea class="form-control" id="ModalComment" :placeholder="this.urls.comment" style="font-size: 0.875rem;" v-model="comment"></textarea>
+                        <textarea class="form-control" id="ModalComment" placeholder="this.urls.comment" style="font-size: 0.875rem;" v-model="comment"></textarea>
                     </div>
                     <div class="mb-0">
                         <label for="ModalExpiration" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Expiration (yy-mm-dd)</label> 
@@ -293,6 +293,8 @@ export default{
     },
     data(){
         return{
+            baseUrl: import.meta.env.VITE_API_URL,
+            
             // store the short_url (not decoded)
             id : this.$route.params.id,
             // stores the api response as an js object
@@ -320,7 +322,9 @@ export default{
         },
         async refreshUrl(){
             try{
-                await fetch("http://localhost:8000/api/urls/filter?url=" + this.id, {
+                const endpoint = this.baseUrl + "/api/urls/filter?url=" + this.id;
+
+                await fetch(endpoint, {
                     method: "GET",
                     credentials: "include",
                     headers: {
@@ -339,7 +343,9 @@ export default{
         },
         async getStatistics(){
             try{
-                await fetch("http://localhost:8000/api/" + this.id + "/statistics", {
+                const endpoint = this.baseUrl + "/api/" + this.id + "/statistics";
+
+                await fetch(endpoint, {
                     method: "GET"
                 })
                 .then(response => response.json())
@@ -360,14 +366,14 @@ export default{
         async updateUrl(){
 
             try{
+                const endpoint = this.baseUrl + "/api/urls/" + this.id;
+                
                 const token = decodeURIComponent(
                     document.cookie
                         .split('; ')
                         .find(row => row.startsWith('XSRF-TOKEN='))
                         .split('=')[1]
                 )
-
-                const endpoint = "http://localhost:8000/api/urls/" + this.id;
 
                 await fetch(endpoint, {
                     method: "PUT",
@@ -392,14 +398,14 @@ export default{
         },
         async updateStatus(){
             try{
+                const endpoint = this.baseUrl + "/api/urls/" + this.urls.short_url;
+
                 const token = decodeURIComponent(
                     document.cookie
                         .split('; ')
                         .find(row => row.startsWith('XSRF-TOKEN='))
                         .split('=')[1]
                 )
-
-                const endpoint = "http://localhost:8000/api/urls/" + this.urls.short_url;
 
                 await fetch(endpoint, {
                     method: "PATCH",
@@ -428,8 +434,8 @@ export default{
         editUrl(url){
             this.url = url.long_url;
             this.slug = url.short_url;
-            this.comment = url.comment ?? "No comment set...";
-            this.expires_at = url.expires_at ?? "Date not set...";
+            this.comment = url.comment;
+            this.expires_at = url.expires_at;
         },
         myVueMethod(){
             console.log("Hello");

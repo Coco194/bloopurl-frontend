@@ -46,7 +46,7 @@
                     <div class="card-body p-4">
                         <h6 class="mb-2 text-body-primary fw-bold">Export a link</h6>
                         <p class="card-text" style="font-size: 0.875rem;">Download one of your links in JSON format</p>
-                        <a href="http://localhost:8000/api/3/stats" style="text-decoration: none;">
+                        <a href="http://192.168.8.161:8000/api/3/stats" style="text-decoration: none;">
                             <button class="btn btn-dark d-flex align-items-center gap-2" type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                                     <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
@@ -64,7 +64,7 @@
                     <div class="card-body p-4">
                         <h6 class="mb-2 text-body-primary fw-bold">Export all links</h6>
                         <p class="card-text" style="font-size: 0.875rem;">Download all your links in JSON format</p>
-                        <a href="http://localhost:8000/api/3/stats?download=all" style="text-decoration: none;">
+                        <a href="http://192.168.8.161:8000/api/3/stats?download=all" style="text-decoration: none;">
                             <button class="btn btn-dark d-flex align-items-center gap-2" type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                                     <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>

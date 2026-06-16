@@ -95,8 +95,8 @@
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none">            
                 <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
                 <div class="d-flex flex-column">
-                    <span style="font-weight: 500;">Shaffaq</span>
-                    <span style="font-size: 0.785rem; color: #6a6a6a;">coco@gmail.com</span>
+                    <span style="font-weight: 500;">{{ username }}</span>
+                    <span style="font-size: 0.785rem; color: #6a6a6a;">{{ email }}</span>
                 </div>
             </a>
 
@@ -148,7 +148,8 @@
 export default{
     data(){
         return {
-
+            username: localStorage.getItem("username"),
+            email: localStorage.getItem("email")
         }
     },
     methods: {

@@ -70,64 +70,67 @@ export default{
     },
     methods: {
         async login() {
-            
-            await fetch("http://localhost:8000/sanctum/csrf-cookie", {
-                method: "GET",
-                credentials: "include"
-            });   
-            
-            const token = decodeURIComponent(
-                document.cookie
-                    .split('; ')
-                    .find(row => row.startsWith('XSRF-TOKEN='))
-                    .split('=')[1]
-            )            
-
-            const response = await fetch("http://localhost:8000/api/login", {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "X-XSRF-TOKEN": token
-                },
-                body: JSON.stringify({
-                    email: this.email,
-                    password: this.password
-                })
-            });
-
-            const data = await response.json();
-            console.log("Response:", data);
-
-            const message = data.message;
-
-            if (response.ok) {
-                // get the logged user instance
-                let user = await fetch("http://localhost:8000/api/user", {
+            try{
+                await fetch("http://192.168.8.161:8000/sanctum/csrf-cookie", {
                     method: "GET",
+                    credentials: "include"
+                });   
+                
+                const token = decodeURIComponent(
+                    document.cookie
+                        .split('; ')
+                        .find(row => row.startsWith('XSRF-TOKEN='))
+                        .split('=')[1]
+                )            
+
+                const response = await fetch("http://192.168.8.161:8000/api/login", {
+                    method: "POST",
                     credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                         "Accept": "application/json",
                         "X-XSRF-TOKEN": token
-                    }
+                    },
+                    body: JSON.stringify({
+                        email: this.email,
+                        password: this.password
+                    })
                 });
 
-                user = await user.json();
-                console.log(user);
+                const data = await response.json();
+                console.log("Response:", data);
 
-                // check if user is logged in, and show the profile icon
-                localStorage.setItem("logged_in", true);
-                localStorage.setItem("username", user.name);
-                localStorage.setItem("email", user.email);
-                this.$router.push("/dashboard");
-                return;
+                const message = data.message;
+
+                if (response.ok) {
+                    // get the logged user instance
+                    let user = await fetch("http://192.168.8.161:8000/api/user", {
+                        method: "GET",
+                        credentials: "include",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json",
+                            "X-XSRF-TOKEN": token
+                        }
+                    });
+
+                    user = await user.json();
+                    console.log(user);
+
+                    // check if user is logged in, and show the profile icon
+                    localStorage.setItem("logged_in", true);
+                    localStorage.setItem("username", user.name);
+                    localStorage.setItem("email", user.email);
+                    this.$router.push("/dashboard");
+                    return;
+                }
+
+                // If login failed
+                this.error = true; 
+                console.log("Login failed:", message);
+            }catch(e){
+                console.log(e);
             }
-
-            // If login failed
-            this.error = true; 
-            console.log("Login failed:", message);
         }
     }
 }
