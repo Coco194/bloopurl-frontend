@@ -126,7 +126,7 @@
 <div class="container pageContainer">
     <div class="row align-items-center">
         <div class="col-12 col-md-6">
-            <p style="font-weight: 700; color: #068006;">Simple</p>
+            <p style="font-weight: 500; color: #068006;">Simple</p>
             <h3 style="font-size: 2.074rem; font-weight: 600;">Easily create short links for your business websites</h3>
             <p style="font-size: 1rem; color: #6a6a6a;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus natus facere soluta molestiae quis tempore, nemo possimus similique vero quas?</p>
         </div>
@@ -142,7 +142,7 @@
             <img src="../../screenshots/link.png" alt="" width="100%" class="img-fluid border rounded-3">
         </div>
         <div class="col-12 col-md-6 flex-row-reverse">
-            <p style="font-weight: 700; color: #804306;">Analyze</p>
+            <p style="font-weight: 500; color: #804306;">Analyze</p>
             <h3 style="font-size: 2.074rem; font-weight: 600;">Track clicks, visits, referrers and more analytics to websites</h3>
             <p style="font-size: 1rem; color: #6a6a6a;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus natus facere soluta molestiae quis tempore, nemo possimus similique vero quas?</p>
         </div>

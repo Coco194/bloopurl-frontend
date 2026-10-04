@@ -41,131 +41,147 @@
             <hr class="mt-0">
         </div>
         <!-- main grid -->
-        <div class="row g-3 m-0 pb-5">       
-            <div class="col-12 col-6-md mt-5">
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <h5 class="fw-bold m-0">Profile</h5>
-                        <p class="m-0 mt-1 mb-3 mt-md-1 mb-md-0" style="color: #4a4a4a;">Control your main account settings and manage login information</p>                        
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <form class="row g-3" d-flex align-items-start>                    
-                            <div class="col-md-12">
-                                <label for="inputName" class="form-label" style="font-size: 0.875rem;">Name</label>
-                                <input type="text" class="form-control" placeholder="Enter your updated name..." id="inputName">
-                            </div>                      
-                            <div class="col-md-12">
-                                <label for="inputEmail" class="form-label" style="font-size: 0.875rem;">Email</label>
-                                <input type="email" class="form-control" placeholder="Enter your updated email..." id="inputEmail">
-                            </div>               
+        <div class="row g-3 m-0 pb-5 gap-2">             
+            <div class="col-12 col-lg-12 col-xl-12">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="col-12 col-6-md m-0">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <h5 class="fw-bold m-0">Profile</h5>
+                                    <p class="m-0 mt-2 mb-3 mt-md-2 mb-md-0" style="color: #4a4a4a;">Control your main account settings and manage login information</p>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <form class="row g-3" d-flex align-items-start>                    
+                                        <div class="col-md-12">
+                                            <label for="inputName" class="form-label" style="font-size: 0.875rem;">Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter your updated name..." id="inputName">
+                                        </div>                      
+                                        <div class="col-md-12">
+                                            <label for="inputEmail" class="form-label" style="font-size: 0.875rem;">Email</label>
+                                            <input type="email" class="form-control" placeholder="Enter your updated email..." id="inputEmail">
+                                        </div>               
 
-                            <div class="col-md-12 d-flex justify-content-end gap-2">
-                                <button type="button" class="btn btn-light" style="border: 1px solid lightgray;">
-                                    Cancel
-                                </button>                                          
-                                <button type="button" class="btn btn-dark" style="border: 1px solid lightgray;">
-                                    Update
-                                </button>                                  
+                                        <div class="col-md-12 d-flex justify-content-end gap-2">
+                                            <button type="button" class="btn btn-light" style="border: 1px solid lightgray;">
+                                                Cancel
+                                            </button>                                          
+                                            <button type="button" class="btn btn-dark" style="border: 1px solid lightgray;">
+                                                Update
+                                            </button>                                  
+                                        </div>
+
+                                    </form>
+                                </div>
                             </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <hr class="my-5">
-
-            <div class="col-12 col-6-md m-0">
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <h5 class="fw-bold m-0">Security</h5>
-                        <p class="m-0 mt-1 mb-3 mt-md-1 mb-md-0" style="color: #4a4a4a;">Control your security</p>                        
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="row g-3">
-                            <div class="col-md-12 d-flex justify-content-between align-items-center">
-                                <div class="d-flex flex-column">
-                                    <h6 class="m-0 mb-1">Change password</h6>
-                                    <p class="mb-0" style="font-size: 0.875rem; color: #888888;">Change your current password</p>
-                                </div>        
-
-                                <button type="button" class="btn btn-light" style="border: 1px solid lightgray;">
-                                    Change
-                                </button>   
-       
-                            </div>            
-                            <div class="col-md-12 d-flex justify-content-between align-items-center">
-                                <div class="d-flex flex-column">
-                                    <h6 class="m-0 mb-1">Password recovery</h6>
-                                    <p class="mb-0" style="font-size: 0.875rem; color: #888888;">Update your recovery email</p>
-                                </div>                 
-                                <button type="button" class="btn btn-light" style="border: 1px solid lightgray;" data-bs-toggle="button">
-                                    Update
-                                </button>                                          
-                            </div>                                    
-                            <div class="col-md-12 d-flex justify-content-between align-items-center">
-                                <div class="d-flex flex-column">
-                                    <h6 class="m-0 mb-1">Two-factor authentication</h6>
-                                    <p class="mb-0" style="font-size: 0.875rem; color: #888888;">Enable two factor authentication</p>
-                                </div>                 
-                                <button type="button" class="btn btn-light" style="border: 1px solid lightgray;" data-bs-toggle="button">
-                                    Enable 2FA
-                                </button>                                          
-                            </div>                                                       
-                            <div class="col-md-12 d-flex justify-content-between align-items-center">
-                                <div class="d-flex flex-column">
-                                    <h6 class="m-0 mb-1">Login notifications</h6>
-                                    <p class="mb-0" style="font-size: 0.875rem; color: #888888;">Get notified of new login attempts</p>
-                                </div>                 
-                                <input class="form-check-input" type="checkbox" id="gridCheck1">                                       
-                            </div>     
-                            <div class="col-md-12 d-flex justify-content-between align-items-center">
-                                <div class="d-flex flex-column">
-                                    <h6 class="m-0 mb-1">Login history</h6>
-                                    <p class="mb-0" style="font-size: 0.875rem; color: #888888;">View login history to your account</p>
-                                </div>                 
-                                <button type="button" class="btn btn-light" style="border: 1px solid lightgray;" data-bs-toggle="button">
-                                    View
-                                </button>  
-                            </div>     
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr class="my-5">    
-
-            <div class="col-12 col-6-md m-0">
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <h5 class="fw-bold text-danger m-0">Danger zone</h5>
-                        <p class="m-0 mt-1 mb-3 mt-md-1 mb-md-0" style="color: #4a4a4a;">Think carefully before proceeding here</p>                        
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="row g-3"> 
-                            <div class="col-md-12 d-flex justify-content-between align-items-center">
-                                <div class="d-flex flex-column">
-                                    <h6 class="m-0">Log out from all the devices</h6>
-                                    <p class="mb-0" style="font-size: 0.875rem; color: #888888;">Logs you out from all the logged in devices</p>
-                                </div>                 
-                                <button type="button" class="btn btn-light" style="border:1px solid lightgray;">
-                                    Logout
-                                </button>  
-                            </div>     
-                            <div class="col-md-12 d-flex justify-content-between align-items-center">
-                                <div class="d-flex flex-column">
-                                    <h6 class="m-0">Delete your account</h6>
-                                    <p class="mb-0" style="font-size: 0.875rem; color: #888888;">This action cannot be reverted</p>
-                                </div>                 
-                                <button type="button" class="btn btn-danger" style="border: 1px solid lightgray;">
-                                    Delete 
-                                </button>  
-                            </div>     
-
                         </div>
                     </div>
                 </div>
             </div>  
-        </div>
+            
+            <div class="col-12 col-lg-12 col-xl-12">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="col-12 col-6-md m-0">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <h5 class="fw-bold m-0">Security</h5>
+                                    <p class="m-0 mt-2 mb-3 mt-md-2 mb-md-0" style="color: #4a4a4a;">Control your security</p>                        
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row g-3">
+                                        <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                            <div class="d-flex flex-column">
+                                                <h6 class="m-0 mb-1">Change password</h6>
+                                                <p class="mb-0" style="font-size: 0.875rem; color: #888888;">Change your current password</p>
+                                            </div>        
+
+                                            <button type="button" class="btn btn-light" style="border: 1px solid lightgray;">
+                                                Change
+                                            </button>   
                 
+                                        </div>            
+                                        <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                            <div class="d-flex flex-column">
+                                                <h6 class="m-0 mb-1">Password recovery</h6>
+                                                <p class="mb-0" style="font-size: 0.875rem; color: #888888;">Update your recovery email</p>
+                                            </div>                 
+                                            <button type="button" class="btn btn-light" style="border: 1px solid lightgray;" data-bs-toggle="button">
+                                                Update
+                                            </button>                                          
+                                        </div>                                    
+                                        <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                            <div class="d-flex flex-column">
+                                                <h6 class="m-0 mb-1">Two-factor authentication</h6>
+                                                <p class="mb-0" style="font-size: 0.875rem; color: #888888;">Enable two factor authentication</p>
+                                            </div>                 
+                                            <button type="button" class="btn btn-light" style="border: 1px solid lightgray;" data-bs-toggle="button">
+                                                Enable 2FA
+                                            </button>                                          
+                                        </div>                                                       
+                                        <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                            <div class="d-flex flex-column">
+                                                <h6 class="m-0 mb-1">Login notifications</h6>
+                                                <p class="mb-0" style="font-size: 0.875rem; color: #888888;">Get notified of new login attempts</p>
+                                            </div>                 
+                                            <input class="form-check-input" type="checkbox" id="gridCheck1">                                       
+                                        </div>     
+                                        <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                            <div class="d-flex flex-column">
+                                                <h6 class="m-0 mb-1">Login history</h6>
+                                                <p class="mb-0" style="font-size: 0.875rem; color: #888888;">View login history to your account</p>
+                                            </div>                 
+                                            <button type="button" class="btn btn-light" style="border: 1px solid lightgray;" data-bs-toggle="button">
+                                                View
+                                            </button>  
+                                        </div>     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+
+            <div class="col-12 col-lg-12 col-xl-12">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="col-12 col-6-md m-0">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <h5 class="fw-bold text-danger m-0">Danger zone</h5>
+                                    <p class="m-0 mt-2 mb-3 mt-md-2 mb-md-0" style="color: #4a4a4a;">Think carefully before proceeding here</p>                        
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row g-3"> 
+                                        <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                            <div class="d-flex flex-column">
+                                                <h6 class="m-0">Log out from all the devices</h6>
+                                                <p class="mb-0" style="font-size: 0.875rem; color: #888888;">Logs you out from all the logged in devices</p>
+                                            </div>                 
+                                            <button type="button" class="btn btn-light" style="border:1px solid lightgray;">
+                                                Logout
+                                            </button>  
+                                        </div>     
+                                        <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                            <div class="d-flex flex-column">
+                                                <h6 class="m-0">Delete your account</h6>
+                                                <p class="mb-0" style="font-size: 0.875rem; color: #888888;">This action cannot be reverted</p>
+                                            </div>                 
+                                            <button type="button" class="btn btn-danger" style="border: 1px solid lightgray;">
+                                                Delete 
+                                            </button>  
+                                        </div>     
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>  
+
+        </div>
     </div>
 </div>
 

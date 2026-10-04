@@ -22,7 +22,7 @@
                             
                         </div>
                     </div>
-                    <form method="POST">
+                    <form @submit.prevent="login">
                         <div class="mb-2">
                             <label for="email" class="form-label" style="font-size: 0.875rem;">Email address</label>
                             <input type="email" class="form-control" id="email" placeholder="coco@example.com" v-model="email" required>

@@ -31,7 +31,7 @@
                         </div>    
                     </form>
 
-                    <button class="btn btn-dark mb-3" @click="register()">Login</button>
+                    <button class="btn btn-dark mb-3" @click="register()">Register</button>
                     <p style="font-size: 0.875rem; text-align: center;">
                         Already have an account? 
                         <router-link to="/login">sign in</router-link>

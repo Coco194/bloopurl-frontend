@@ -19,45 +19,37 @@
         </li>
         <li data-bs-dismiss="offcanvas">
             <router-link to="/dashboard" class="d-flex gap-2 align-items-center list-group-item list-group-item-action rounded-2" style="border: 0px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16" style="stroke-width: 0.5px; stroke: black;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16" style="stroke-width: 0.5px; stroke: rgb(122, 122, 122);">
                     <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139q.323-.119.684-.12h5.396z"/>
                 </svg>
-                <span style="font-size: 0.875rem; font-weight: 500; color: rgb(97, 86, 86);">
-                    Dashboard
-                </span>                    
+                <span style="font-size: 0.875rem; font-weight: 500;">Dashboard</span>                    
             </router-link>
         </li>
         <li data-bs-dismiss="offcanvas">
             <router-link to="/" class="d-flex gap-2 align-items-center list-group-item list-group-item-action rounded-2" style="border: 0px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16" style="stroke-width: 0.5px; stroke: black;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16" style="stroke-width: 0.5px; stroke: rgb(122, 122, 122);">
                     <path fill-rule="evenodd" d="M0 0h1v15h15v1H0zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07"/>
                 </svg>
-                <span style="font-size: 0.875rem; font-weight: 500; color: rgb(97, 86, 86);"  
-                data-bs-dismiss="offcanvas">
-                    Analyze
-                </span>
-            </router-link>
-        </li>
-        <li data-bs-dismiss="offcanvas">  
-            <router-link to="/dashboard/export" class="d-flex gap-2 align-items-center list-group-item list-group-item-action rounded-2" style="border: 0px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="stroke-width: 0.5px; stroke: black;">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                </svg>
-                <span style="font-size: 0.875rem; font-weight: 500; color: rgb(97, 86, 86);">
-                    Import/export
-                </span>
+                <span style="font-size: 0.875rem; font-weight: 500;">Analyze</span>
             </router-link>
         </li>
         <li data-bs-dismiss="offcanvas">
-            <router-link to="/dashboard/settings" class="d-flex gap-2 align-items-center list-group-item list-group-item-action rounded-2" style="border: 0px;" >
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16" style="stroke-width: 0.5px; stroke: black;">
+            <router-link to="/dashboard/export" class="d-flex gap-2 align-items-center list-group-item list-group-item-action rounded-2" style="border: 0px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="stroke-width: 0.5px; stroke: rgb(122, 122, 122);">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+                <span style="font-size: 0.875rem; font-weight: 500;">Export</span>
+            </router-link>
+        </li>
+        
+        <li data-bs-dismiss="offcanvas">
+            <router-link to="/dashboard/settings" class="d-flex gap-2 align-items-center list-group-item list-group-item-action rounded-2" style="border: 0px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16" style="stroke-width: 0.5px; stroke: rgb(122, 122, 122);">
                     <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
                     <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
                 </svg>
-                <span style="font-size: 0.875rem; font-weight: 500; color: rgb(97, 86, 86);">
-                    Settings
-                </span>
-            </router-link>
+                <span style="font-size: 0.875rem; font-weight: 500;">Settings</span>
+            </router-link>                
         </li>
     </ul>
 
@@ -80,15 +72,34 @@
             <ul class="dropdown-menu" style="transition-duration: 0.25s;">
 
                 <!-- Dropdown menu links -->
-                <li><a class="dropdown-item" href="#">New project...</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li>
+                    <a class="dropdown-item rounded-2 gap-2 my-1 py-1 d-flex align-items-center justify-content-start gap-2" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                        </svg>
+                        <span style="font-size: 0.875rem;font-weight: 400;">Profile</span>
+                    </a>                               
+                </li>     
+
+                <li>
+                    <a class="dropdown-item rounded-2 gap-2 my-1 py-1 d-flex align-items-center justify-content-start gap-2" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-question-lg" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M4.475 5.458c-.284 0-.514-.237-.47-.517C4.28 3.24 5.576 2 7.825 2c2.25 0 3.767 1.36 3.767 3.215 0 1.344-.665 2.288-1.79 2.973-1.1.659-1.414 1.118-1.414 2.01v.03a.5.5 0 0 1-.5.5h-.77a.5.5 0 0 1-.5-.495l-.003-.2c-.043-1.221.477-2.001 1.645-2.712 1.03-.632 1.397-1.135 1.397-2.028 0-.979-.758-1.698-1.926-1.698-1.009 0-1.71.529-1.938 1.402-.066.254-.278.461-.54.461h-.777ZM7.496 14c.622 0 1.095-.474 1.095-1.09 0-.618-.473-1.092-1.095-1.092-.606 0-1.087.474-1.087 1.091S6.89 14 7.496 14"/>
+                        </svg>                    
+                        <span style="font-size: 0.875rem;font-weight: 400;">Support</span>
+                    </a>                               
+                </li>                         
+
                 <li><hr class="dropdown-divider"></li>
-                <li data-bs-dismiss="offcanvas">
-                    <a class="dropdown-item link-dark" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                        Sign out
-                    </a>
-                </li>
+
+                <li data-bs-toggle="modal" data-bs-target="#logoutModal">
+                    <a class="dropdown-item rounded-2 gap-2 my-1 py-1 d-flex align-items-center justify-content-start gap-2" href="#">       
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#de5d5d" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5"/>
+                        </svg>
+                        <span style="font-size: 0.875rem;font-weight: 400; color: #de5d5d;">Log out</span>
+                    </a>                               
+                </li>      
             </ul>
         </div>     
     </div>
@@ -143,6 +154,7 @@ export default{
 <style scoped>
 .list-group-item{
     background-color: #fafafa;
+    color: rgb(122, 122, 122);
 }
 .list-group-item:active{
     background-color: #e0e0e0;
@@ -155,7 +167,7 @@ export default{
 /* Vue Router automatically assigns this class to the current tab */
 .router-link-active {
   background-color: #f0f0f0;
-  /*color: rgb(42, 42, 42);
-  color: black !important;*/
+  /*color: rgb(42, 42, 42);*/
+  color: black !important;
 }
 </style>

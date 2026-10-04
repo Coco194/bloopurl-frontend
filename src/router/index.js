@@ -10,9 +10,11 @@ import DashboardLink from '../views/DashboardLink.vue'
 import DashboardExport from '../views/DashboardExport.vue'
 import DashboardSettings from '../views/DashboardSettings.vue'
 import ProtectedPage from '../views/ProtectedPage.vue'
+import BentoPage from '@/views/BentoPage.vue'
 
 const routes = [
     { 
+        name: 'Home',
         path: '/', 
         component: HomePage,
         meta: {
@@ -44,10 +46,10 @@ const routes = [
         }
     },
     {
-        path: '/protected',
+        path: '/protected/:id',
         component: ProtectedPage,
         meta: {
-            showHeaderFooter: true
+            showHeaderFooter: false
         }
     },
 
@@ -73,7 +75,7 @@ const routes = [
     },
 
     {
-        name: "Import/export",
+        name: "Export",
         path: "/dashboard/export",
         component: DashboardExport,
         meta: {
@@ -89,6 +91,11 @@ const routes = [
             requiresAuth: true,
             showHeaderFooter: false
         }        
+    },
+    {
+        name: "Bento",
+        path: "/bento",
+        component: BentoPage
     }
 ];
 

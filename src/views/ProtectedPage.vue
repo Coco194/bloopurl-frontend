@@ -12,22 +12,18 @@
                     </router-link>
                     <h2 class="m-0 mt-0 mb-2 fw-bold">Protected link</h2>
                     <p class="mb-4" style="font-size: 0.875rem; color: #6a6a6a;">This link is password protected, please enter the access code to access this link</p>
-                    <div class="alert alert-light d-flex align-items-center gap-2" role="alert">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                        </svg>                   
+                    <div class="alert alert-light d-flex align-items-center gap-2" role="alert">               
                         <div>
                             <span style="font-size: 0.875rem;">coco@gmail.com</span>                            
                         </div>
                     </div>
                     <hr style="color: #8a8a8a;">
-                    <form method="POST">
+                    <form @submit.prevent="login">
 
                         <div class="mb-4">
-                            <label for="password" class="form-label" style="font-size: 0.875rem;">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Password" v-model="password" required>
-                            <p v-if="error === true" style="font-size: 0.875rem; color: red;">Email or password is incorrect</p>
+                            <label for="password" class="form-label" style="font-size: 0.875rem;">Access code</label>
+                            <input type="password" class="form-control" id="password" placeholder="1234" v-model="password" required>
+                            <p v-if="error === true" style="font-size: 0.875rem; color: red;">Incorrect access code, please try again</p>
                         </div>    
                     </form>
 
@@ -35,7 +31,7 @@
 
                     <p class="text-center" style="font-size: 0.875rem;">
                         Any issues? 
-                        <router-link to="/protected">report problems</router-link>
+                        <router-link to="/">report</router-link>
                     </p>
 
                     <p class="text-center" style="font-size: 0.875rem; color: #8a8a8a;">
@@ -65,8 +61,48 @@ export default{
     },
     methods: {
         async login() {
-        
-            console.log("Hello");
+            try{
+                await fetch("http://192.168.8.161:8000/sanctum/csrf-cookie", {
+                    method: "GET",
+                    credentials: "include"                        
+                });
+ 
+                const token = decodeURIComponent(
+                    document.cookie
+                        .split('; ')
+                        .find(row => row.startsWith('XSRF-TOKEN='))
+                        .split('=')[1]
+                )                          
+
+                const endpoint = "http://192.168.8.161:8000/api/protected/" + this.$route.params.id;
+                
+                const response = await fetch(endpoint, {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "X-XSRF-TOKEN": token
+                    },
+                    body: JSON.stringify({
+                        passcode: this.password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // check if response in 400 range and if both user input and db hash match
+                if(response.ok && data.hashMatch){
+                    window.location.replace(data.url);
+                }else{
+                    this.error = true;
+                }
+
+                //console.log("Password incorrect, try again")
+
+            }catch(e){
+                console.log(e)
+            }            
         }
     }
 }
