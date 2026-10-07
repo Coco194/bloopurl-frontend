@@ -62,27 +62,13 @@ export default{
     methods: {
         async login() {
             try{
-                await fetch("http://192.168.8.161:8000/sanctum/csrf-cookie", {
-                    method: "GET",
-                    credentials: "include"                        
-                });
- 
-                const token = decodeURIComponent(
-                    document.cookie
-                        .split('; ')
-                        .find(row => row.startsWith('XSRF-TOKEN='))
-                        .split('=')[1]
-                )                          
-
                 const endpoint = "http://192.168.8.161:8000/api/protected/" + this.$route.params.id;
                 
                 const response = await fetch(endpoint, {
                     method: "POST",
-                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
-                        "Accept": "application/json",
-                        "X-XSRF-TOKEN": token
+                        "Accept": "application/json"
                     },
                     body: JSON.stringify({
                         passcode: this.password

@@ -117,18 +117,14 @@ export default{
     },
     methods: {
         async logOut(){
-            const token = decodeURIComponent(
-                document.cookie
-                    .split('; ')
-                    .find(row => row.startsWith('XSRF-TOKEN='))
-                    .split('=')[1]);
+            const bearerToken = localStorage.getItem("token");
+            const token = "Bearer " + bearerToken;
 
             const response = await fetch("http://localhost:8000/api/logout", {
                 method: "POST",
-                credentials: "include",
                 headers: {
                     "Accept": "application/json",
-                    "X-XSRF-TOKEN": token
+                    "Authorization": token
                 }
             });
 
@@ -137,10 +133,10 @@ export default{
             console.log("Response:", data);
 
             if (response.ok) {
-                localStorage.setItem("logged_in", false);
-                localStorage.setItem("username", "");
-                localStorage.setItem("email", "");
-                this.$router.push("/login");
+                localStorage.removeItem("username");
+                localStorage.removeItem("email");
+                localStorage.removeItem("token");
+                this.$router.push("/");
                 return;
             }
 

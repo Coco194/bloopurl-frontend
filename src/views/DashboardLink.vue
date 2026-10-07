@@ -322,13 +322,16 @@ export default{
         },
         async refreshUrl(){
             try{
+                const bearerToken = localStorage.getItem("token");
+                const token = "Bearer " + bearerToken;
+
                 const endpoint = this.baseUrl + "/api/urls/filter?url=" + this.id;
 
                 await fetch(endpoint, {
                     method: "GET",
-                    credentials: "include",
                     headers: {
                         "Accept": "application/json",
+                        "Authorization": token
                     }
                 })
                 .then(response => response.json())
@@ -366,22 +369,17 @@ export default{
         async updateUrl(){
 
             try{
+                const bearerToken = localStorage.getItem("token");
+                const token = "Bearer " + bearerToken;
+
                 const endpoint = this.baseUrl + "/api/urls/" + this.id;
-                
-                const token = decodeURIComponent(
-                    document.cookie
-                        .split('; ')
-                        .find(row => row.startsWith('XSRF-TOKEN='))
-                        .split('=')[1]
-                )
 
                 await fetch(endpoint, {
                     method: "PUT",
-                    credentials: "include",
                     headers: {
                         "Accept": "application/json",
                         "Content-Type": "application/json",
-                        "X-XSRF-TOKEN": token
+                        "Authorization": token
                     },
                     body: JSON.stringify({
                         longUrl: this.url,
@@ -398,22 +396,17 @@ export default{
         },
         async updateStatus(){
             try{
-                const endpoint = this.baseUrl + "/api/urls/" + this.urls.short_url;
+                const bearerToken = localStorage.getItem("token");
+                const token = "Bearer " + bearerToken;
 
-                const token = decodeURIComponent(
-                    document.cookie
-                        .split('; ')
-                        .find(row => row.startsWith('XSRF-TOKEN='))
-                        .split('=')[1]
-                )
+                const endpoint = this.baseUrl + "/api/urls/" + this.urls.short_url;
 
                 await fetch(endpoint, {
                     method: "PATCH",
-                    credentials: "include",
                     headers: {
                         "Accept": "application/json",
                         "Content-Type": "application/json",
-                        "X-XSRF-TOKEN": token
+                        "Authorization": token
                     },
                     body: JSON.stringify({
                         shortUrl: this.urls.short_url,

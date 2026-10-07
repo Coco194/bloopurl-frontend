@@ -385,13 +385,16 @@ export default{
         },
         async refreshUrl(){
             try{
+                const bearerToken = localStorage.getItem("token");
+                const token = "Bearer " + bearerToken;
+                
                 const endpoint = this.baseUrl + "/api/urls"                 
 
                 const response = await fetch(endpoint, {
                     method: "GET",
-                    credentials: "include",
                     headers: {
                         "Accept": "application/json",
+                        "Authorization": token 
                     }
                 });
 
@@ -402,10 +405,12 @@ export default{
                 // authentication 
                 if(response.ok){
                     return;
-                }else{                    
-                    localStorage.setItem("logged_in", false);
-                    //this.$router.push("/login");
+                }else if(response.status === 401){                    
+                    localStorage.removeItem("token");
+                    this.$router.push("/login");
                     return;
+                }else{
+                    
                 }
             }catch(e){
                 console.log(e);
@@ -416,22 +421,17 @@ export default{
         },
         async insertUrl(){
             try{
-                const endpoint = this.baseUrl + "/api/urls";
+                const bearerToken = localStorage.getItem("token");
+                const token = "Bearer " + bearerToken;
 
-                const token = decodeURIComponent(
-                document.cookie
-                    .split('; ')
-                    .find(row => row.startsWith('XSRF-TOKEN='))
-                    .split('=')[1]
-                )
+                const endpoint = this.baseUrl + "/api/urls";
             
                 await fetch(endpoint, {
                     method: "POST",
-                    credentials: "include",
                     headers: {
                         "Accept": "application/json",
                         "Content-Type": "application/json",
-                        "X-XSRF-TOKEN": token
+                        "Authorization": token
                     },
                     body: JSON.stringify({
                         url: this.url,
@@ -456,22 +456,17 @@ export default{
         },
         async updateUrl(){
             try{
-                const token = decodeURIComponent(
-                document.cookie
-                    .split('; ')
-                    .find(row => row.startsWith('XSRF-TOKEN='))
-                    .split('=')[1]
-                )
+                const bearerToken = localStorage.getItem("token");
+                const token = "Bearer " + bearerToken;
 
                 const endpoint = this.baseUrl + "/api/urls/" + this.selectUrl;
-
+                console.log(this.selectUrl)
                 await fetch(endpoint, {
                     method: "PUT",
-                    credentials: "include", 
                     headers: {
                         "Accept": "application/json",
                         "Content-Type": "application/json",
-                        "X-XSRF-TOKEN": token
+                        "Authorization": token
                     },
                     body: JSON.stringify({
                         longUrl: this.url,  
@@ -502,7 +497,6 @@ export default{
             try{
                 await fetch(endpoint, {
                     method: "GET",
-                    credentials: "include",
                     headers: {
                         "Accept": "application/json",
                     }
@@ -525,22 +519,17 @@ export default{
         async deleteUrl(url){
             try{
 
-                const token = decodeURIComponent(
-                document.cookie
-                    .split('; ')
-                    .find(row => row.startsWith('XSRF-TOKEN='))
-                    .split('=')[1]
-                )
+                const bearerToken = localStorage.getItem("token");
+                const token = "Bearer " + bearerToken;
 
                 const endpoint = this.baseUrl + "/api/urls/" + url.short_url;
                 
                 await fetch(endpoint, {
                     method: "DELETE",
-                    credentials: "include",
                     headers: {
                         "Accept": "application/json",
                         "Content-Type": "application/json",
-                        "X-XSRF-TOKEN": token
+                        "Authorization": token
                     },
                 })
                 .then(response => response.json()) 
@@ -560,7 +549,6 @@ export default{
 
                 await fetch(endpoint, {
                     method: "GET",
-                    credentials: "include",
                     headers: {
                         "Accept": "application/json"
                     }
@@ -576,22 +564,17 @@ export default{
         },
         async updateStatus(url){
             try{
-                const token = decodeURIComponent(
-                    document.cookie
-                        .split('; ')
-                        .find(row => row.startsWith('XSRF-TOKEN='))
-                        .split('=')[1]
-                )
+                const bearerToken = localStorage.getItem("token");
+                const token = "Bearer " + bearerToken;
 
                 const endpoint = this.baseUrl + "/api/urls/" + url.short_url;
 
                 await fetch(endpoint, {
                     method: "PATCH",
-                    credentials: "include",
                     headers: {
                         "Accept": "application/json",
                         "Content-Type": "application/json",
-                        "X-XSRF-TOKEN": token
+                        "Authorization": token
                     },
                     body: JSON.stringify({
                         shortUrl: url.short_url,

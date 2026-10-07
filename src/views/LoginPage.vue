@@ -71,25 +71,11 @@ export default{
     methods: {
         async login() {
             try{
-                await fetch("http://192.168.8.161:8000/sanctum/csrf-cookie", {
-                    method: "GET",
-                    credentials: "include"
-                });   
-                
-                const token = decodeURIComponent(
-                    document.cookie
-                        .split('; ')
-                        .find(row => row.startsWith('XSRF-TOKEN='))
-                        .split('=')[1]
-                )            
-
                 const response = await fetch("http://192.168.8.161:8000/api/login", {
                     method: "POST",
-                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                         "Accept": "application/json",
-                        "X-XSRF-TOKEN": token
                     },
                     body: JSON.stringify({
                         email: this.email,
@@ -100,27 +86,28 @@ export default{
                 const data = await response.json();
                 console.log("Response:", data);
 
+                const bearerToken = data.token;
+                const token = "Bearer " + bearerToken;
                 const message = data.message;
 
-                if (response.ok) {
+                if(response.ok) {
                     // get the logged user instance
                     let user = await fetch("http://192.168.8.161:8000/api/user", {
                         method: "GET",
-                        credentials: "include",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
-                            "X-XSRF-TOKEN": token
+                            "Authorization": token
                         }
                     });
 
                     user = await user.json();
                     console.log(user);
 
-                    // check if user is logged in, and show the profile icon
-                    localStorage.setItem("logged_in", true);
+                    // store the username, email and token in localstorage
                     localStorage.setItem("username", user.name);
                     localStorage.setItem("email", user.email);
+                    localStorage.setItem("token", data.token);
                     this.$router.push("/dashboard");
                     return;
                 }
