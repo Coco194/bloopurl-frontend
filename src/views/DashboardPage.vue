@@ -269,7 +269,7 @@
                         <input type="text" class="form-control" id="ModalUrl" placeholder="Enter a link..." style="font-size: 0.875rem;" v-model="url">
                     </div>
                     <div class="mb-3">
-                        <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Slug</label>
+                        <label for="ModalSlug" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Slug</label>
                         <input type="text" class="form-control" id="ModalSlug" placeholder="Enter a slug..." style="font-size: 0.875rem;" v-model="slug">
                     </div>
                     <div class="mb-3">
@@ -278,7 +278,7 @@
                     </div>
                     <div class="mb-0">
                         <label for="ModalExpiration" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Expiration (yy-mm-dd)</label> 
-                        <input class="form-control" id="dateInput" placeholder="Enter an expiration date..." style="font-size: 0.875rem; color: #0a0a0a;" v-model="expires_at">
+                        <input class="form-control" id="ModalExpiration" placeholder="Enter an expiration date..." style="font-size: 0.875rem; color: #0a0a0a;" v-model="expires_at">
                     </div>
                 </form>
             </div>
@@ -306,7 +306,7 @@
                         <input type="text" class="form-control" id="ModalUrl" placeholder="this.url" style="font-size: 0.875rem; color: #6a6a6a;" v-model="url">
                     </div>
                     <div class="mb-3">
-                        <label for="ModalAlias" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Slug</label>
+                        <label for="ModalSlug" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Slug</label>
                         <input type="text" class="form-control" id="ModalSlug" placeholder="this.slug" style="font-size: 0.875rem; color: #6a6a6a;" v-model="slug" readonly>
                     </div>
                     <div class="mb-3">
@@ -388,7 +388,7 @@ export default{
                 const bearerToken = localStorage.getItem("token");
                 const token = "Bearer " + bearerToken;
                 
-                const endpoint = this.baseUrl + "/api/urls"                 
+                const endpoint = this.baseUrl + "/api/urls"      
 
                 const response = await fetch(endpoint, {
                     method: "GET",
@@ -461,6 +461,7 @@ export default{
 
                 const endpoint = this.baseUrl + "/api/urls/" + this.selectUrl;
                 console.log(this.selectUrl)
+                
                 await fetch(endpoint, {
                     method: "PUT",
                     headers: {
@@ -492,6 +493,9 @@ export default{
 
             this.isSkeletonLoading = true;
 
+            const bearerToken = localStorage.getItem("token");
+            const token = "Bearer " + bearerToken;
+
             const endpoint = this.baseUrl + "/api/urls/filter?url=" + this.searchBar;
 
             try{
@@ -499,6 +503,7 @@ export default{
                     method: "GET",
                     headers: {
                         "Accept": "application/json",
+                        "Authorization": token
                     }
                 })
                 .then(response => response.json())
@@ -545,12 +550,16 @@ export default{
             this.loading = true;
 
             try{
+                const bearerToken = localStorage.getItem("token");
+                const token = "Bearer " + bearerToken;
+
                 const endpoint = this.baseUrl + "/api/urls?sort=" + method; 
 
                 await fetch(endpoint, {
                     method: "GET",
                     headers: {
-                        "Accept": "application/json"
+                        "Accept": "application/json",
+                        "Authorization": token
                     }
                 })
                 .then(response => response.json())

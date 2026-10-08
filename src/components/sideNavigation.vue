@@ -168,6 +168,8 @@
 export default{
     data(){
         return {
+            baseUrl: import.meta.env.VITE_API_URL,
+
             username: localStorage.getItem("username"),
             email: localStorage.getItem("email")
         }
@@ -177,7 +179,9 @@ export default{
             const bearerToken = localStorage.getItem("token");
             const token = "Bearer " + bearerToken;
 
-            const response = await fetch("http://192.168.8.161:8000/api/logout", {
+            const endpoint = this.baseUrl + "/api/logout";
+
+            const response = await fetch(endpoint, {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",

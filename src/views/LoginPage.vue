@@ -25,7 +25,7 @@
                     <form @submit.prevent="login">
                         <div class="mb-2">
                             <label for="email" class="form-label" style="font-size: 0.875rem;">Email address</label>
-                            <input type="email" class="form-control" id="email" placeholder="coco@example.com" v-model="email" required>
+                            <input type="email" class="form-control" id="email" placeholder="coco@example.com" v-model="email" autocomplete="on" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label" style="font-size: 0.875rem;">Password</label>
@@ -36,14 +36,12 @@
                             <input type="checkbox" class="form-check-input" id="check">
                             <label class="form-check-label" for="check" style="font-size: 0.875rem;">Remember me</label>
                         </div>
+                        <button type="submit" class="btn btn-dark mb-3 w-100" @click="login()">Login</button>
+                        <p style="font-size: 0.875rem; text-align: center;">
+                            Don't have an account? 
+                            <router-link to="/register">sign up</router-link>
+                        </p>                        
                     </form>
-
-                    <button class="btn btn-dark mb-3" @click="login()">Login</button>
-                    <p style="font-size: 0.875rem; text-align: center;">
-                        Don't have an account? 
-                        <router-link to="/register">sign up</router-link>
-                    </p>
-                    
                 </div>
             </div>
 
@@ -59,6 +57,8 @@
 export default{
     data(){
         return{
+            baseUrl: import.meta.env.VITE_API_URL,
+
             email: "",
             password: "",
 
@@ -71,7 +71,9 @@ export default{
     methods: {
         async login() {
             try{
-                const response = await fetch("http://192.168.8.161:8000/api/login", {
+                const endpoint = this.baseUrl + "/api/login"
+
+                const response = await fetch(endpoint, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -88,11 +90,14 @@ export default{
 
                 const bearerToken = data.token;
                 const token = "Bearer " + bearerToken;
+                
                 const message = data.message;
 
                 if(response.ok) {
+                    const userEndpoint = this.baseUrl + "/api/user"
+
                     // get the logged user instance
-                    let user = await fetch("http://192.168.8.161:8000/api/user", {
+                    let user = await fetch(userEndpoint, {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",

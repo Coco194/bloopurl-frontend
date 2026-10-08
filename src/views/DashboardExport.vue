@@ -129,18 +129,49 @@ import SideNavigationMobile from '../components/sideNavigationMobile.vue';
 
 
 export default{
+    mounted(){
+        this.refresh();
+    },
     components: {
         SideNavigation,
         SideNavigationMobile
     },
     data(){
         return {
+            baseUrl: import.meta.env.VITE_API_URL,
+
             // stores the state of the api (received or not received)
-            isSkeletonLoading: true,
+            isSkeletonLoading: true
         }
     },
     methods :{
+        async refresh(){
+            try{
+                const bearerToken = localStorage.getItem("token");
+                const token = "Bearer " + bearerToken;
 
+                const endpoint = this.baseUrl + "/api/user";
+                const response = await fetch(endpoint, {
+                    method: "GET",
+                    headers: {
+                        "Accept": "Application/json",
+                        "Authorization": token
+                    }
+                });
+
+                if(response.status === 401){
+                    this.$router.push("/login");
+                    return;
+                }
+
+                const data = await response.json();
+
+                //console.log(data)
+                console.log("User "+ data.email + " is authorized!");
+            }catch(e){
+                console.log(e);
+            }
+        }
     }
 }
 </script>

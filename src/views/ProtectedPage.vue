@@ -50,6 +50,8 @@
 export default{
     data(){
         return{
+            baseUrl: import.meta.env.VITE_API_URL,
+
             email: "",
             password: "",
 
@@ -62,7 +64,7 @@ export default{
     methods: {
         async login() {
             try{
-                const endpoint = "http://192.168.8.161:8000/api/protected/" + this.$route.params.id;
+                const endpoint = this.baseUrl + "/api/protected/" + this.$route.params.id;
                 
                 const response = await fetch(endpoint, {
                     method: "POST",

@@ -24,7 +24,6 @@
 -->
 
 
-
 <nav class="navContainer navbar sticky-top navbar-expand-lg gap-2"> 
     <div class="container-fluid m-0 p-0">
 
@@ -47,7 +46,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto gap-3 align-items-center"> 
 
-                <li v-if="logged_in == 'true'">
+                <li v-if="token != null">
                     <router-link to="/dashboard" style="text-decoration: none;">
                         <button class="btn btn-light d-flex align-items-center gap-2" style="border: 1px solid lightgray;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stars" viewBox="0 0 16 16">
@@ -58,7 +57,7 @@
                     </router-link>
                 </li>
 
-                <li v-if="logged_in == 'false' || logged_in == null">
+                <li v-if="token == null">
                     <router-link to="/register">
                         <button type="button" class="btn gap-2">
                             Register
@@ -66,7 +65,7 @@
                     </router-link>
                 </li>
 
-                <li v-if="logged_in == 'false' || logged_in == null">
+                <li v-if="token == null">
                     <router-link to="/login">
                         <button type="button" class="btn btn-dark gap-2">
                             Login
@@ -242,7 +241,7 @@
 </div>
 -->
 
-<!-- Log out confirmation modal -->
+<!-- Log out confirmation modal 
 <div class="modal fade " id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -261,6 +260,7 @@
         </div>
     </div>
 </div>
+-->
 
 </template>
 
@@ -268,13 +268,17 @@
 
 export default{    
     data(){
-        return {
+        return{
+            token: localStorage.getItem("token")
+            /*
             logged_in: localStorage.getItem("logged_in"),
             username: localStorage.getItem("username"),
             email: localStorage.getItem("email")
+            */
         }
     },
     methods: {       
+        /*
         async logOut(){
             const token = decodeURIComponent(
                 document.cookie
@@ -304,7 +308,7 @@ export default{
             }
 
             console.log("Login failed:", data);
-        }
+        }*/
     }
 }
 

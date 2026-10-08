@@ -12,30 +12,29 @@
                     </router-link>
                     <h2 class="m-0 mt-0 mb-2 fw-bold">Sign up</h2>
                     <p class="mb-4" style="font-size: 0.875rem; color: #6a6a6a;">Register to your BloopUrl account</p>
-                    <form method="POST">
+                    <form @submit.prevent="register">
                         <div class="mb-2">
                             <label for="name" class="form-label" style="font-size: 0.875rem;">Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="coco" v-model="name" required>
+                            <input type="text" class="form-control" id="name" placeholder="coco" v-model="name" autocomplete="on" required>
                         </div>
                         <div class="mb-2">
                             <label for="email" class="form-label" style="font-size: 0.875rem;">Email address</label>
-                            <input type="email" class="form-control" id="email" placeholder="coco@example.com" v-model="email" required>
+                            <input type="email" class="form-control" id="email" placeholder="coco@example.com" v-model="email" autocomplete="on" required>
                         </div>
                         <div class="mb-2">
                             <label for="password" class="form-label" style="font-size: 0.875rem;">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="Password" v-model="password" required>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" v-model="password" required>
                         </div>    
                         <div class="mb-4">
                             <label for="password_confirmation" class="form-label" style="font-size: 0.875rem;">Confirm password</label>
-                            <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm password" v-model="password_confirmation" required>
-                        </div>    
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm password" v-model="password_confirmation" required>
+                        </div>
+                        <button class="btn btn-dark mb-3 w-100" @click="register()">Register</button>
+                        <p style="font-size: 0.875rem; text-align: center;">
+                            Already have an account? 
+                            <router-link to="/login">sign in</router-link>
+                        </p>
                     </form>
-
-                    <button class="btn btn-dark mb-3" @click="register()">Register</button>
-                    <p style="font-size: 0.875rem; text-align: center;">
-                        Already have an account? 
-                        <router-link to="/login">sign in</router-link>
-                    </p>
                     
                 </div>
             </div>
@@ -49,6 +48,8 @@
 export default{
     data(){
         return{
+            baseUrl: import.meta.env.VITE_API_URL,
+
             name: "",
             email: "",
             password: "",
@@ -58,25 +59,17 @@ export default{
     methods: {
         async register() {
 
-            await fetch("http://192.168.8.161:8000/sanctum/csrf-cookie", {
-                credentials: "include"
-            });
+            const bearerToken = localStorage.getItem("token");
+            const token = "Bearer " + bearerToken;
 
-            // Extract XSRF token from cookies
-            const token = decodeURIComponent(
-                document.cookie
-                    .split('; ')
-                    .find(row => row.startsWith('XSRF-TOKEN='))
-                    .split('=')[1]
-            );
+            const endpoint = this.baseUrl + "/api/register";
 
-            const response = await fetch("http://192.168.8.161:8000/api/register", {
+            const response = await fetch(endpoint, {
                 method: "POST",
-                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
-                    "X-XSRF-TOKEN": token
+                    "Authorization": token
                 },
                 body: JSON.stringify({
                     name: this.name,
