@@ -263,7 +263,7 @@
             </div>
             <div class="modal-body">
                 <p style="font-size: 0.875rem; color: #8a8a8a;">This preview link is valid only for 24hours.</p>
-                <form action="/" method="POST">
+                <form>
                     <div class="mb-3">
                         <label for="ModalUrl" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Url</label>
                         <input type="text" class="form-control" id="ModalUrl" placeholder="Enter a link..." style="font-size: 0.875rem;" v-model="url">
@@ -300,7 +300,7 @@
             </div>
             <div class="modal-body">
                 <p style="font-size: 0.875rem; color: #8a8a8a;">This preview link is valid only for 24hours.</p>
-                <form action="/" method="POST">
+                <form>
                     <div class="mb-3">
                         <label for="ModalUrl" class="form-label" style="font-size: 0.875rem; color: #0a0a0a;">Url</label>
                         <input type="text" class="form-control" id="ModalUrl" placeholder="this.url" style="font-size: 0.875rem; color: #6a6a6a;" v-model="url">

@@ -27,7 +27,7 @@
                         </div>    
                     </form>
 
-                    <button class="btn btn-dark mb-3" @click="login()">Enter page</button>
+                    <button type="submit" class="btn btn-dark mb-3">Enter page</button>
 
                     <p class="text-center" style="font-size: 0.875rem;">
                         Any issues? 
