@@ -29,7 +29,7 @@
                             <label for="password_confirmation" class="form-label" style="font-size: 0.875rem;">Confirm password</label>
                             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm password" v-model="password_confirmation" required>
                         </div>
-                        <button class="btn btn-dark mb-3 w-100" @click="register()">Register</button>
+                        <button class="btn btn-dark mb-3 w-100">Register</button>
                         <p style="font-size: 0.875rem; text-align: center;">
                             Already have an account? 
                             <router-link to="/login">sign in</router-link>

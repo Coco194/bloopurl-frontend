@@ -143,6 +143,46 @@
                 </div>
             </div>  
 
+
+            <div class="col-12 col-lg-12 col-xl-12">
+                <div class="card">
+                    <div class="card-body p-4">                        
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <h5 class="fw-bold m-0">Active sessions</h5>
+                            </div>
+                            <div class="col-12 col-md-12">
+                                <div class="row g-3">
+                                    <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                        <table class="table table-borderless caption-top">
+                                            <caption>List of users</caption>                
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">id</th>
+                                                    <th scope="col">token_id</th>
+                                                    <th scope="col">created_at</th>
+                                                    <th scope="col">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="session in activeSession" :key="session.id">
+                                                    <th scope="row">{{ session.id }}</th>
+                                                    <td>{{ session.tokenable_id }}</td>
+                                                    <td>{{ session.created_at }}</td>
+                                                    <td>
+                                                        <button type="button" class="btn-close" aria-label="Close" @click="logoutDevice(session)"></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
             <div class="col-12 col-lg-12 col-xl-12">
                 <div class="card">
                     <div class="card-body p-4">
@@ -199,7 +239,8 @@ import SideNavigationMobile from "../components/sideNavigationMobile.vue";
 
 export default{
     mounted(){
-        this.refresh()
+        this.refresh();
+        this.activeSessions();
     },
     components: {
         SideNavigation,
@@ -208,6 +249,9 @@ export default{
     data(){
         return {
             baseUrl: import.meta.env.VITE_API_URL,
+
+            // store the active sessions of the user
+            activeSession: [],
 
             // stores the state of the api (received or not received)
             isSkeletonLoading: true,
@@ -240,6 +284,56 @@ export default{
             }catch(e){
                 console.log(e);
             }
+        },
+        async activeSessions(){
+            const bearerToken = localStorage.getItem("token");
+            const token = "Bearer " + bearerToken;
+
+            // get current user
+            const userEndpoint = this.baseUrl + "/api/user";
+            const userResponse = await fetch(userEndpoint, {
+                method: "GET",
+                headers: {
+                    "Accept": "Application/json",
+                    "Authorization": token
+                }
+            });
+            
+            const user = await userResponse.json();
+
+            // get current users associated tokens
+            const endpoint = this.baseUrl + "/api/users/" + user.id;
+            const response = await fetch(endpoint, {
+                method: "GET",
+                headers: {
+                    "Accept": "Application/json",
+                    "Authorization": token
+                }
+            });
+
+            const users = await response.json();
+            this.activeSession = users;
+            // console.log("Active sessions:", this.activeSession);
+        },
+        async logoutDevice(session){
+            const bearerToken = localStorage.getItem("token");
+            const token = "Bearer " + bearerToken;
+
+            const endpoint = this.baseUrl + "/api/logout/" + session.id;
+
+            const response = await fetch(endpoint, {
+                method: "DELETE",
+                headers: {
+                    "Content-type": "json",
+                    "Accept": "Application/json",
+                    "Authorization": token
+                }
+            });
+
+            console.log("User with session id " + session.id + " is removed");
+
+            // refresh the active sessions after deleting
+            this.activeSessions();
         }
     }
 }

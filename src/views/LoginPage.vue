@@ -36,7 +36,7 @@
                             <input type="checkbox" class="form-check-input" id="check">
                             <label class="form-check-label" for="check" style="font-size: 0.875rem;">Remember me</label>
                         </div>
-                        <button type="submit" class="btn btn-dark mb-3 w-100" @click="login()">Login</button>
+                        <button type="submit" class="btn btn-dark mb-3 w-100">Login</button>
                         <p style="font-size: 0.875rem; text-align: center;">
                             Don't have an account? 
                             <router-link to="/register">sign up</router-link>
